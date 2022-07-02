@@ -1,0 +1,652 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Go: gsignal, Master of Signals · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="Go-How-Does-a-Goroutine-Start-and-Exit.html" />
+    
+    
+    <link rel="prev" href="Go-How-Does-a-Goroutine-Start-and-Exit.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="list.html">
+            
+                <a href="list.html">
+            
+                    
+                    GOROUTINE
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="Go-How-Does-a-Goroutine-Start-and-Exit.html">
+            
+                <a href="Go-How-Does-a-Goroutine-Start-and-Exit.html">
+            
+                    
+                    Go:How Does a Goroutine Start and Exit?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2.2" data-path="Go-gsignal-Master-of-Signals.html">
+            
+                <a href="Go-gsignal-Master-of-Signals.html">
+            
+                    
+                    Go: gsignal, Master of Signals
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="Go-How-Does-a-Goroutine-Start-and-Exit.html">
+            
+                <a href="Go-How-Does-a-Goroutine-Start-and-Exit.html">
+            
+                    
+                    Go:What Does a Goroutine Switch Actually Involve?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" >
+            
+                <span>
+            
+                    
+                    Go:How Does Go Recycle Goroutines?
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="Go-g0-Special-Goroutine.html">
+            
+                <a href="Go-g0-Special-Goroutine.html">
+            
+                    
+                    Go:g0, Special Goroutine
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6" data-path="Go-Concurrency-And-Scheduler-Affinity.html">
+            
+                <a href="Go-Concurrency-And-Scheduler-Affinity.html">
+            
+                    
+                    Go: Concurrency & Scheduler Affinity
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7" data-path="Go-Goroutine-and-Preemption.html">
+            
+                <a href="Go-Goroutine-and-Preemption.html">
+            
+                    
+                    Go: Goroutine and Preemption
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8" data-path="Go-Work-Stealing-in-Go-Scheduler.html">
+            
+                <a href="Go-Work-Stealing-in-Go-Scheduler.html">
+            
+                    
+                    Go: Work-Stealing in Go Scheduler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9" data-path="Go-Goroutine-OS-Thread-and-CPU-Management.html">
+            
+                <a href="Go-Goroutine-OS-Thread-and-CPU-Management.html">
+            
+                    
+                    Go: Goroutine, OS Thread and CPU Management
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.10" data-path="Go-Improve-the-Usage-of-Your-Goroutines-with-GODEBUG.html">
+            
+                <a href="Go-Improve-the-Usage-of-Your-Goroutines-with-GODEBUG.html">
+            
+                    
+                    Go: Improve the Usage of Your Goroutines with GODEBUG
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.11" data-path="Go-How-Does-the-Goroutine-Stack-Size-Evolve.html">
+            
+                <a href="Go-How-Does-the-Goroutine-Stack-Size-Evolve.html">
+            
+                    
+                    Go: How Does the Goroutine Stack Size Evolve?
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../gc/list.html">
+            
+                <a href="../gc/list.html">
+            
+                    
+                    GARGAGE COLLECTOR
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-memory-management-and-memory-sweep-cc71b484de05">
+            
+                    
+                    Memory Management and Memory Sweep
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-how-does-the-garbage-collector-mark-the-memory-72cfc12c6976">
+            
+                    
+                    Go: How Does the Garbage Collector Mark the Memory?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-how-does-the-garbage-collector-watch-your-application-dbef99be2c35">
+            
+                    
+                    Go: How Does the Garbage Collector Watch Your Application?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-keeping-a-variable-alive-c28e3633673a">
+            
+                    
+                    Go: Keeping a Variable Alive
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../compiler/list.html">
+            
+                <a href="../compiler/list.html">
+            
+                    
+                    COMPILER
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-overview-of-the-compiler-4e5a153ca889">
+            
+                    
+                    Go: Overview of the Compiler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-built-in-functions-optimizations-70c5abb3a680">
+            
+                    
+                    Go: Built-in Functions Optimizations
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-introduction-to-the-escape-analysis-f7610174e890">
+            
+                    
+                    Go: Introduction to the Escape Analysis
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-how-to-take-advantage-of-the-symbols-table-360dd52269e5">
+            
+                    
+                    Go: How to Take Advantage of the Symbols Table
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-aliases-simple-and-efficient-8506d93b079e">
+            
+                    
+                    Go: Aliases, Simple and Efficient
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-slice-and-memory-management-670498bb52be">
+            
+                    
+                    Go: Slice and Memory Management
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.7" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-memory-safety-with-bounds-check-1397bef748b5">
+            
+                    
+                    Go: Memory safety with Bounds Check
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.8" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-inlining-strategy-limitation-6b6d7fc3b1be">
+            
+                    
+                    Go: Inlining Strategy & Limitation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.9" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-how-are-loops-translated-to-assembly-835b985309b3">
+            
+                    
+                    Go: How Are Loops Translated to Assembly
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../package/list.html">
+            
+                <a href="../package/list.html">
+            
+                    
+                    PACKAGE
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../debug/list.html">
+            
+                <a href="../debug/list.html">
+            
+                    
+                    DEBUG
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Go: gsignal, Master of Signals</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="go-gsignal-&#x4FE1;&#x53F7;&#x7684;&#x638C;&#x63A7;&#x8005;">Go: gsignal, &#x4FE1;&#x53F7;&#x7684;&#x638C;&#x63A7;&#x8005;</h1>
+<p>&#x2139;&#xFE0F; <em>&#x672C;&#x6587;&#x57FA;&#x4E8E; Go 1.13&#x3002;</em></p>
+<p><code>signal</code> &#x5305;&#x63D0;&#x4F9B;&#x4E86;&#x4FE1;&#x53F7;&#x5904;&#x7406;&#x5668;&#xFF0C;&#x8BA9;&#x6211;&#x4EEC;&#x7684; Go &#x7A0B;&#x5E8F;&#x53EF;&#x4EE5;&#x4E0E;&#x53D1;&#x9001;&#x6765;&#x7684;&#x4FE1;&#x53F7;&#x8FDB;&#x884C;&#x4EA4;&#x4E92;&#x3002;&#x5728;&#x8FDB;&#x5165;&#x5185;&#x90E8;&#x7EC6;&#x8282;&#x4E4B;&#x524D;&#xFF0C;&#x6211;&#x4EEC;&#x5148;&#x6765;&#x4E86;&#x89E3;&#x4E0B; listener&#x3002;</p>
+<h2 id="&#x8BA2;&#x9605;">&#x8BA2;&#x9605;</h2>
+<p>&#x5BF9;&#x4FE1;&#x53F7;&#x7684;&#x8BA2;&#x9605;&#x662F;&#x901A;&#x8FC7;&#x901A;&#x9053;&#x5B9E;&#x73B0;&#x7684;&#x3002;&#x4E0B;&#x9762;&#x662F;&#x4E00;&#x4E2A;&#x76D1;&#x542C;&#x6240;&#x6709;&#x4E2D;&#x65AD;&#x4FE1;&#x53F7;&#x548C;&#x7EC8;&#x7AEF;&#x5927;&#x5C0F;&#x6539;&#x53D8;&#x4FE1;&#x53F7;&#x7684;&#x7A0B;&#x5E8F;&#x7684;&#x4F8B;&#x5B50;&#xFF1A;</p>
+<p><img src="../img/gsignal-01.png" alt=""></p>
+<p>&#x6BCF;&#x4E2A; <code>os.Signal</code> &#x901A;&#x9053;&#x76D1;&#x542C;&#x5404;&#x81EA;&#x5BF9;&#x5E94;&#x7684;&#x4E8B;&#x4EF6;&#x3002;&#x4E0B;&#x9762;&#x662F;&#x524D;&#x9762;&#x4F8B;&#x5B50;&#x8BA2;&#x9605;&#x5DE5;&#x4F5C;&#x6D41;&#x7684;&#x793A;&#x610F;&#x56FE;&#xFF1A;</p>
+<p><img src="../img/gsignal-02.png" alt=""></p>
+<p>Go &#x4E5F;&#x8D4B;&#x4E88;&#x4E86;&#x901A;&#x9053;&#x505C;&#x6B62;&#x88AB;&#x901A;&#x77E5;&#x7684;&#x80FD;&#x529B;&#xFF08;<code>Stop(os.Signal)</code> &#x51FD;&#x6570;&#xFF09;&#x548C;&#x5FFD;&#x7565;&#x4FE1;&#x53F7;&#x7684;&#x80FD;&#x529B;&#xFF08;<code>Ignore(...os.Signal)</code> &#x51FD;&#x6570;&#xFF09;&#x3002;&#x4E0B;&#x9762;&#x662F;&#x4E24;&#x4E2A;&#x51FD;&#x6570;&#x7684;&#x4F8B;&#x5B50;&#xFF1A;</p>
+<p><img src="../img/gsignal-03.png" alt=""></p>
+<p>&#x8FD9;&#x4E2A;&#x7A0B;&#x5E8F;&#x65E0;&#x6CD5;&#x88AB; <code>CTRL + C</code> &#x4E2D;&#x65AD;&#xFF0C;&#x5E76;&#x4E14;&#x6C38;&#x8FDC;&#x4E0D;&#x4F1A;&#x505C;&#x6B62;&#xFF0C;&#x56E0;&#x4E3A;&#x5728;&#x7B2C;&#x4E8C;&#x6B21;&#x4ECE;&#x8BE5;&#x901A;&#x9053;&#x63A5;&#x6536;&#x4FE1;&#x53F7;&#x4E4B;&#x524D;&#xFF0C;&#x8BE5;&#x901A;&#x9053;&#x5DF2;&#x505C;&#x6B62;&#x4FA6;&#x542C;&#x7EC8;&#x7AEF;&#x8C03;&#x6574;&#x5927;&#x5C0F;&#x7684;&#x4FE1;&#x53F7;&#x3002;&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x6765;&#x770B;&#x4E0B;&#x5904;&#x7406;&#x53D1;&#x9001;&#x6765;&#x7684;&#x4FE1;&#x53F7;&#x7684; <code>listener</code> &#x548C; <code>process</code> &#x4E24;&#x4E2A;&#x9636;&#x6BB5;&#x662F;&#x5982;&#x4F55;&#x5185;&#x5EFA;&#x7684;&#x3002;</p>
+<h2 id="gsignal">gsignal</h2>
+<p>&#x5728;&#x521D;&#x59CB;&#x5316;&#x9636;&#x6BB5;&#xFF0C;<code>signal</code> &#x5F00;&#x542F;&#x4E86;&#x4E00;&#x4E2A;&#x5728;&#x5FAA;&#x73AF;&#x4E2D;&#x8FD0;&#x884C;&#x7684;&#x534F;&#x7A0B;&#xFF0C;&#x4F5C;&#x4E3A;&#x5904;&#x7406;&#x4FE1;&#x53F7;&#x7684;&#x6D88;&#x8D39;&#x8005;&#x3002;&#x5728;&#x5FAA;&#x73AF;&#x88AB;&#x901A;&#x77E5;&#x6FC0;&#x6D3B;&#x4E4B;&#x524D;&#xFF0C;&#x4E00;&#x76F4;&#x5904;&#x4E8E;&#x7761;&#x7720;&#x72B6;&#x6001;&#x3002;&#x4E0B;&#x9762;&#x662F;&#x7B2C;&#x4E00;&#x6B65;&#x7684;&#x793A;&#x610F;&#x56FE;&#xFF1A;</p>
+<p><img src="../img/gsignal-04.png" alt=""></p>
+<p>&#x7136;&#x540E;&#xFF0C;&#x5F53;&#x4E00;&#x4E2A;&#x4FE1;&#x53F7;&#x5230;&#x8FBE;&#x7A0B;&#x5E8F;&#x65F6;&#xFF0C;&#x4FE1;&#x53F7;&#x5904;&#x7406;&#x5668;&#x628A;&#x5B83;&#x4EE3;&#x7406;&#x5230;&#x4E00;&#x4E2A;&#x540D;&#x4E3A; <code>gsignal</code> &#x7684;&#x4E13;&#x7528;&#x534F;&#x7A0B;&#x3002;&#x8FD9;&#x4E2A;&#x534F;&#x7A0B;&#x662F;&#x7528;&#x6BD4;&#x8F83;&#x5927;&#x7684;&#x6808;&#x7A7A;&#x95F4;&#xFF08;32 K&#xFF0C;&#x76EE;&#x7684;&#x662F;&#x6EE1;&#x8DB3;&#x4E0D;&#x540C;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x7684;&#x4E0D;&#x540C;&#x9700;&#x6C42;&#xFF09;&#x521B;&#x5EFA;&#x7684;&#xFF0C;&#x5E76;&#x4E14;&#x7A7A;&#x95F4;&#x56FA;&#x5B9A;&#x4E0D;&#x80FD;&#x589E;&#x957F;&#x3002;&#x6BCF;&#x4E2A;&#x7EBF;&#x7A0B;&#xFF08;&#x56FE;&#x7247;&#x7684; <code>M</code>&#xFF09;&#x5185;&#x90E8;&#x90FD;&#x6709; <code>gsignal</code> &#x534F;&#x7A0B;&#x6765;&#x5904;&#x7406;&#x4FE1;&#x53F7;&#x3002;&#x4E0B;&#x9762;&#x662F;&#x66F4;&#x65B0;&#x540E;&#x7684;&#x793A;&#x610F;&#x56FE;&#xFF1A;</p>
+<p><img src="../img/gsignal-05.png" alt=""></p>
+<p><code>gsignal</code> &#x5206;&#x6790;&#x4FE1;&#x53F7;&#xFF0C;&#x68C0;&#x67E5;&#x4FE1;&#x53F7;&#x662F;&#x5426;&#x53EF;&#x5904;&#x7406;&#xFF0C;&#x5728;&#x628A;&#x4FE1;&#x53F7;&#x53D1;&#x9001;&#x5230;&#x961F;&#x5217;&#x91CC;&#x65F6;&#x5524;&#x9192;&#x5904;&#x4E8E;&#x7761;&#x7720;&#x72B6;&#x6001;&#x7684;&#x534F;&#x7A0B;&#x3002;</p>
+<p><img src="../img/gsignal-06.png" alt=""></p>
+<p><em><code>SIGBUS</code> &#x6216; <code>SIGFPE</code> &#x7B49;&#x540C;&#x6B65;&#x4FE1;&#x53F7;&#x4E0D;&#x80FD;&#x88AB;&#x7BA1;&#x7406;&#xFF0C;&#x4F1A;&#x88AB;&#x8F6C;&#x4E3A; panic</em></p>
+<p>&#x7136;&#x540E;&#xFF0C;&#x5FAA;&#x73AF;&#x4E2D;&#x7684;&#x534F;&#x7A0B;&#x53EF;&#x4EE5;&#x5904;&#x7406;&#x5B83;&#x3002;&#x5B83;&#x9996;&#x5148;&#x627E;&#x5230;&#x8BA2;&#x9605;&#x4E86;&#x8FD9;&#x4E2A;&#x4E8B;&#x4EF6;&#x7684;&#x901A;&#x9053;&#xFF0C;&#x518D;&#x628A;&#x4FE1;&#x53F7;&#x63A8;&#x8FDB;&#x901A;&#x9053;&#xFF1A;</p>
+<p><img src="../img/gsignal-07.png" alt=""></p>
+<p>&#x901A;&#x8FC7;&#x5DE5;&#x5177; <code>go tool trace</code> &#x53EF;&#x4EE5;&#x53EF;&#x89C6;&#x5316;&#x5BF9;&#x5FAA;&#x73AF;&#x5904;&#x7406;&#x4FE1;&#x53F7;&#x7684;&#x534F;&#x7A0B;&#x7684;&#x8FFD;&#x8E2A;&#x8FC7;&#x7A0B;&#x3002;</p>
+<p><img src="../img/gsignal-08.png" alt=""></p>
+<p><code>gsignal</code> &#x7684;&#x963B;&#x585E;&#x6216;&#x9501;&#x4F1A;&#x8BA9;&#x4FE1;&#x53F7;&#x5904;&#x7406;&#x9677;&#x5165;&#x9EBB;&#x70E6;&#x3002;&#x7531;&#x4E8E;&#x5B83;&#x7684;&#x6808;&#x7A7A;&#x95F4;&#x56FA;&#x5B9A;&#xFF0C;&#x56E0;&#x6B64;&#x4E0D;&#x80FD;&#x518D;&#x7533;&#x8BF7;&#x5185;&#x5B58;&#x3002;&#x8FD9;&#x5C31;&#x662F;&#x5728;&#x4FE1;&#x53F7;&#x5904;&#x7406;&#x94FE;&#x4E2D;&#x6709;&#x4E24;&#x4E2A;&#x72EC;&#x7ACB;&#x7684;&#x534F;&#x7A0B;&#x5F88;&#x91CD;&#x8981;&#x7684;&#x539F;&#x56E0;&#xFF1A;&#x4E00;&#x4E2A;&#x534F;&#x7A0B;&#x7528;&#x4E8E;&#x5728;&#x4FE1;&#x53F7;&#x5230;&#x8FBE;&#x65F6;&#x5C3D;&#x5FEB;&#x6392;&#x5217;&#x4FE1;&#x53F7;&#xFF0C;&#x53E6;&#x4E00;&#x4E2A;&#x534F;&#x7A0B;&#x7528;&#x5FAA;&#x73AF;&#x5904;&#x7406;&#x8BE5;&#x961F;&#x5217;&#x4E2D;&#x7684;&#x4FE1;&#x53F7;&#x3002;</p>
+<p>&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x7528;&#x65B0;&#x7684;&#x7EC4;&#x4EF6;&#x6765;&#x66F4;&#x65B0;&#x7B2C;&#x4E00;&#x8282;&#x7684;&#x63D2;&#x56FE;&#x4E86;&#xFF1A;</p>
+<p><img src="../img/gsignal-09.png" alt=""></p>
+<hr>
+<p>via:<a href="https://medium.com/a-journey-with-go/go-gsignal-master-of-signals-329f7ff39391" target="_blank">https://medium.com/a-journey-with-go/go-gsignal-master-of-signals-329f7ff39391</a></p>
+<p>&#x4F5C;&#x8005;&#xFF1A;<a href="https://medium.com/@blanchon.vincent" target="_blank">Vincent Blanchon</a></p>
+<p>&#x8BD1;&#x8005;: <a href="https://github.com/SarahChenBJ" target="_blank">SarahC</a></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="Go-How-Does-a-Goroutine-Start-and-Exit.html" class="navigation navigation-prev " aria-label="Previous page: Go:How Does a Goroutine Start and Exit?">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="Go-How-Does-a-Goroutine-Start-and-Exit.html" class="navigation navigation-next " aria-label="Next page: Go:What Does a Goroutine Switch Actually Involve?">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Go: gsignal, Master of Signals","level":"1.2.2","depth":2,"next":{"title":"Go:What Does a Goroutine Switch Actually Involve?","level":"1.2.3","depth":2,"path":"goroutine/Go-How-Does-a-Goroutine-Start-and-Exit.md","ref":"goroutine/Go-How-Does-a-Goroutine-Start-and-Exit.md","articles":[]},"previous":{"title":"Go:How Does a Goroutine Start and Exit?","level":"1.2.1","depth":2,"path":"goroutine/Go-How-Does-a-Goroutine-Start-and-Exit.md","ref":"goroutine/Go-How-Does-a-Goroutine-Start-and-Exit.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":".","styles":{"website":"styles/website.css","ebook":"styles/ebook.css","pdf":"styles/pdf.css","mobi":"styles/mobi.css","epub":"styles/epub.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"goroutine/Go-gsignal-Master-of-Signals.md","mtime":"2022-07-02T20:42:24.079Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-07-02T20:43:10.347Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

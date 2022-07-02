@@ -1,0 +1,761 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Go: Goroutine and Preemption · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="Go-Work-Stealing-in-Go-Scheduler.html" />
+    
+    
+    <link rel="prev" href="Go-Concurrency-And-Scheduler-Affinity.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="list.html">
+            
+                <a href="list.html">
+            
+                    
+                    GOROUTINE
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="Go-How-Does-a-Goroutine-Start-and-Exit.html">
+            
+                <a href="Go-How-Does-a-Goroutine-Start-and-Exit.html">
+            
+                    
+                    Go:How Does a Goroutine Start and Exit?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="Go-gsignal-Master-of-Signals.html">
+            
+                <a href="Go-gsignal-Master-of-Signals.html">
+            
+                    
+                    Go: gsignal, Master of Signals
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="Go-How-Does-a-Goroutine-Start-and-Exit.html">
+            
+                <a href="Go-How-Does-a-Goroutine-Start-and-Exit.html">
+            
+                    
+                    Go:What Does a Goroutine Switch Actually Involve?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" >
+            
+                <span>
+            
+                    
+                    Go:How Does Go Recycle Goroutines?
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="Go-g0-Special-Goroutine.html">
+            
+                <a href="Go-g0-Special-Goroutine.html">
+            
+                    
+                    Go:g0, Special Goroutine
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6" data-path="Go-Concurrency-And-Scheduler-Affinity.html">
+            
+                <a href="Go-Concurrency-And-Scheduler-Affinity.html">
+            
+                    
+                    Go: Concurrency & Scheduler Affinity
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2.7" data-path="Go-Goroutine-and-Preemption.html">
+            
+                <a href="Go-Goroutine-and-Preemption.html">
+            
+                    
+                    Go: Goroutine and Preemption
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8" data-path="Go-Work-Stealing-in-Go-Scheduler.html">
+            
+                <a href="Go-Work-Stealing-in-Go-Scheduler.html">
+            
+                    
+                    Go: Work-Stealing in Go Scheduler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9" data-path="Go-Goroutine-OS-Thread-and-CPU-Management.html">
+            
+                <a href="Go-Goroutine-OS-Thread-and-CPU-Management.html">
+            
+                    
+                    Go: Goroutine, OS Thread and CPU Management
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.10" data-path="Go-Improve-the-Usage-of-Your-Goroutines-with-GODEBUG.html">
+            
+                <a href="Go-Improve-the-Usage-of-Your-Goroutines-with-GODEBUG.html">
+            
+                    
+                    Go: Improve the Usage of Your Goroutines with GODEBUG
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.11" data-path="Go-How-Does-the-Goroutine-Stack-Size-Evolve.html">
+            
+                <a href="Go-How-Does-the-Goroutine-Stack-Size-Evolve.html">
+            
+                    
+                    Go: How Does the Goroutine Stack Size Evolve?
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../gc/list.html">
+            
+                <a href="../gc/list.html">
+            
+                    
+                    GARGAGE COLLECTOR
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-memory-management-and-memory-sweep-cc71b484de05">
+            
+                    
+                    Memory Management and Memory Sweep
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-how-does-the-garbage-collector-mark-the-memory-72cfc12c6976">
+            
+                    
+                    Go: How Does the Garbage Collector Mark the Memory?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-how-does-the-garbage-collector-watch-your-application-dbef99be2c35">
+            
+                    
+                    Go: How Does the Garbage Collector Watch Your Application?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-keeping-a-variable-alive-c28e3633673a">
+            
+                    
+                    Go: Keeping a Variable Alive
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../compiler/list.html">
+            
+                <a href="../compiler/list.html">
+            
+                    
+                    COMPILER
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-overview-of-the-compiler-4e5a153ca889">
+            
+                    
+                    Go: Overview of the Compiler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-built-in-functions-optimizations-70c5abb3a680">
+            
+                    
+                    Go: Built-in Functions Optimizations
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-introduction-to-the-escape-analysis-f7610174e890">
+            
+                    
+                    Go: Introduction to the Escape Analysis
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-how-to-take-advantage-of-the-symbols-table-360dd52269e5">
+            
+                    
+                    Go: How to Take Advantage of the Symbols Table
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-aliases-simple-and-efficient-8506d93b079e">
+            
+                    
+                    Go: Aliases, Simple and Efficient
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-slice-and-memory-management-670498bb52be">
+            
+                    
+                    Go: Slice and Memory Management
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.7" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-memory-safety-with-bounds-check-1397bef748b5">
+            
+                    
+                    Go: Memory safety with Bounds Check
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.8" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-inlining-strategy-limitation-6b6d7fc3b1be">
+            
+                    
+                    Go: Inlining Strategy & Limitation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.9" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-how-are-loops-translated-to-assembly-835b985309b3">
+            
+                    
+                    Go: How Are Loops Translated to Assembly
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../package/list.html">
+            
+                <a href="../package/list.html">
+            
+                    
+                    PACKAGE
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../debug/list.html">
+            
+                <a href="../debug/list.html">
+            
+                    
+                    DEBUG
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Go: Goroutine and Preemption</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="go&#xFF1A;goroutine-&#x4E0E;&#x62A2;&#x5360;&#x673A;&#x5236;">Go&#xFF1A;Goroutine &#x4E0E;&#x62A2;&#x5360;&#x673A;&#x5236;</h1>
+<p>&#x2139;&#xFE0F;<em>&#x672C;&#x7BC7;&#x6587;&#x7AE0;&#x57FA;&#x4E8E; Go 1.13.</em></p>
+<p>Go &#x901A;&#x8FC7;&#x4E00;&#x4E2A;&#x5185;&#x90E8;&#x8C03;&#x5EA6;&#x5668;&#xFF08;scheduler&#xFF09;&#x6765;&#x7BA1;&#x7406; goroutines&#x3002;&#x8BE5;&#x8C03;&#x5EA6;&#x5668;&#x8D1F;&#x8D23;&#x5207;&#x6362;&#x548C;&#x8C03;&#x5EA6;&#x591A;&#x4E2A; goroutine&#xFF0C;&#x4FDD;&#x8BC1;&#x6BCF;&#x4E2A; Goroutine &#x90FD;&#x53EF;&#x4EE5;&#x5F97;&#x5230;&#x6267;&#x884C;&#x65F6;&#x95F4;&#x3002;&#x540C;&#x65F6;&#xFF0C;&#x4E3A;&#x4E86;&#x6267;&#x884C;&#x8FD9;&#x4E9B;&#x5207;&#x6362;&#x8C03;&#x5EA6;&#x64CD;&#x4F5C;&#xFF0C;&#x8C03;&#x5EA6;&#x5668;&#x9700;&#x8981;&#x4E00;&#x79CD;&#x62A2;&#x5360;&#x673A;&#x5236;&#xFF0C;&#x7528;&#x4EE5;&#x62A2;&#x5360;&#x8FD0;&#x884C;&#x7684; goroutine&#x3002;</p>
+<h2 id="&#x8C03;&#x5EA6;&#x5668;&#x4E0E;&#x62A2;&#x5360;&#x673A;&#x5236;">&#x8C03;&#x5EA6;&#x5668;&#x4E0E;&#x62A2;&#x5360;&#x673A;&#x5236;</h2>
+<p>&#x6211;&#x4EEC;&#x5148;&#x770B;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x4F8B;&#x5B50;, &#x4EE5;&#x521D;&#x6B65;&#x4E86;&#x89E3;&#x8C03;&#x5EA6;&#x5668;&#x662F;&#x5982;&#x4F55;&#x5DE5;&#x4F5C;&#x7684;&#xFF1A;</p>
+<p><em>&#x4E3A;&#x4E86;&#x65B9;&#x4FBF;&#x9605;&#x8BFB;&#xFF0C;&#x672C;&#x6587;&#x7684;&#x4EE3;&#x7801;&#x793A;&#x4F8B;&#x90FD;&#x662F;&#x975E;&#x539F;&#x5B50;&#x64CD;&#x4F5C;</em></p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+   <span class="hljs-keyword">var</span> total <span class="hljs-keyword">int</span>
+   <span class="hljs-keyword">var</span> wg sync.WaitGroup
+
+   <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++ {
+      wg.Add(<span class="hljs-number">1</span>)
+      Go <span class="hljs-keyword">func</span>() {
+         <span class="hljs-keyword">for</span> j := <span class="hljs-number">0</span>; j &lt; <span class="hljs-number">1000</span>; j++ {
+            total += readNumber()
+         }
+         wg.Done()
+      }()
+   }
+
+   wg.Wait()
+}
+
+<span class="hljs-comment">//go:noinline</span>
+<span class="hljs-keyword">func</span> readNumber() <span class="hljs-keyword">int</span> {
+   <span class="hljs-keyword">return</span> rand.Intn(<span class="hljs-number">10</span>)
+}
+</code></pre>
+<p>&#x4E0B;&#x9762;&#x6211;&#x4EEC;&#x6765;&#x770B;&#x4E00;&#x4E0B; tracing &#x4E2D;&#x8BB0;&#x5F55;&#x7684;&#x8FD9;&#x6BB5;&#x4EE3;&#x7801;&#x7684;&#x8FD0;&#x884C;&#x72B6;&#x6001;&#xFF1A;
+<img src="../img/preemption-01.png" alt="STW_goroutines_preemption">
+<br></p>
+<p>&#x4ECE;&#x4E0A;&#x56FE;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5F88;&#x6E05;&#x6670;&#x7684;&#x770B;&#x5230;&#x8C03;&#x5EA6;&#x5668;&#x5728;&#x4E0D;&#x540C;&#x5904;&#x7406;&#x5668;&#xFF08;processor&#xFF09;&#x4E0A;&#xFF0C;&#x5207;&#x6362;&#x4E0D;&#x540C;&#x7684; goroutine&#xFF0C;&#x4EE5;&#x4FDD;&#x8BC1;&#x6240;&#x6709;&#x7684; Goroutine &#x90FD;&#x53EF;&#x4EE5;&#x5F97;&#x5230;&#x8FD0;&#x884C;&#x65F6;&#x95F4;&#x3002;&#x540C;&#x65F6;&#xFF0C;&#x4E3A;&#x4E86;&#x7ED9; goroutines &#x8F6E;&#x6D41;&#x5206;&#x53D1;&#x8FD0;&#x884C;&#x65F6;&#x95F4;&#xFF0C;&#x5F53; Goroutine &#x7531;&#x4E8E;&#x67D0;&#x4E9B;&#x539F;&#x56E0;&#xFF08;&#x5982;&#x7B49;&#x5F85;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#xFF0C;block &#x5728; channel&#xFF0C;&#x5904;&#x4E8E; sleeping &#x72B6;&#x6001;&#xFF0C;&#x6216;&#x8005;&#x7B49;&#x5F85;&#x4E92;&#x65A5;&#x9501;&#x7B49;&#xFF09;&#x800C;&#x505C;&#x6B62;&#xFF0C;Go &#x4F1A;&#x8D1F;&#x8D23;&#x8C03;&#x5EA6;&#x8FD9;&#x4E9B; goroutine&#x3002;</p>
+<p>&#x90A3;&#x4E48;&#xFF0C;&#x5728;&#x6211;&#x4EEC;&#x8FD9;&#x6BB5;&#x6570;&#x5B57;&#x751F;&#x6210;&#x5668;&#x7A0B;&#x5E8F;&#x4E2D;&#xFF0C;&#x4E92;&#x65A5;&#x9501;&#xFF08;mutex&#xFF09;&#x4F7F;&#x5F97;&#x8C03;&#x5EA6;&#x5668;&#x66F4;&#x65B9;&#x4FBF;&#x7684;&#x4E3A;&#x6240;&#x6709; goroutines &#x5206;&#x914D;&#x8FD0;&#x884C;&#x65F6;&#x95F4;&#x3002;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4ECE; tracing &#x4E2D;&#x770B;&#x5230;&#x6E05;&#x6670;&#x7684;&#x770B;&#x5230;&#x8FD9;&#x4E00;&#x70B9;&#xFF1A;</p>
+<p><img src="../img/preemption-2.png" alt="STW_goroutines_preemption">
+<br></p>
+<p>&#x5F53;&#x7136;&#xFF0C;Go &#x4E5F;&#x9700;&#x8981;&#x4E00;&#x79CD;&#x65B9;&#x5F0F;&#x6765;&#x505C;&#x6B62;&#x4E00;&#x4E2A; goroutine&#xFF0C;&#x5C24;&#x5176;&#x662F;&#x8FD9;&#x4E2A; Goroutine &#x672C;&#x8EAB;&#x6CA1;&#x6709;&#x5B9E;&#x73B0;&#x505C;&#x6B62;&#x3002;&#x6211;&#x4EEC;&#x79F0;&#x4E4B;&#x4E3A;&#x62A2;&#x5360;&#xFF08;preemption&#xFF09;&#x3002; &#x62A2;&#x5360;&#x5141;&#x8BB8;&#x8C03;&#x5EA6;&#x5668;&#x53EF;&#x4EE5;&#x5728; goroutines &#x76F4;&#x63A5;&#x5207;&#x6362;&#x3002;&#x4EFB;&#x4F55;&#x8FD0;&#x884C;&#x65F6;&#x95F4;&#x8D85;&#x8FC7; 10 &#x6BEB;&#x79D2;&#x7684; Goroutine &#x90FD;&#x4F1A;&#x88AB;&#x6807;&#x8BB0;&#x4E3A;&#x201C;&#x53EF;&#x62A2;&#x5360;&#x201D;&#x72B6;&#x6001;&#x3002;&#x4E4B;&#x540E;&#xFF0C;&#x62A2;&#x5360;&#x64CD;&#x4F5C;&#x4F1A;&#x5728; Goroutine &#x7684;&#x51FD;&#x6570;&#x5E8F;&#x8A00;&#xFF08;function prologue&#xFF09;&#x9636;&#x6BB5;&#x6267;&#x884C;&#x3002;</p>
+<p>&#x4E0B;&#x9762;&#xFF0C;&#x6211;&#x4EEC;&#x6765;&#x6539;&#x5199;&#x4E00;&#x4E0B;&#x4E4B;&#x524D;&#x7684;&#x6570;&#x5B57;&#x751F;&#x6210;&#x5668;&#x7A0B;&#x5E8F;&#x4EE3;&#x7801;&#xFF0C;&#x867D;&#x7136;&#x6539;&#x5199;&#x540E;&#x4E0D;&#x80FD;&#x6B63;&#x5E38;&#x8FD0;&#x884C;&#xFF0C;&#x4F46;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; tracing &#x6765;&#x5370;&#x8BC1;&#x62A2;&#x5360;&#x64CD;&#x4F5C;&#x6267;&#x884C;&#x8FC7;&#x7A0B;&#xFF1A;</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+   <span class="hljs-keyword">var</span> total <span class="hljs-keyword">int</span>
+   <span class="hljs-keyword">var</span> wg sync.WaitGroup
+
+   <span class="hljs-keyword">for</span> i := gen(<span class="hljs-number">0</span>); i &lt; <span class="hljs-number">20</span>; i++ {
+      wg.Add(<span class="hljs-number">1</span>)
+      Go <span class="hljs-keyword">func</span>(g gen) {
+         <span class="hljs-keyword">for</span> j := <span class="hljs-number">0</span>; j &lt; <span class="hljs-number">1e7</span>; j++ {
+            total += g.readNumber()
+         }
+         wg.Done()
+      }(i)
+   }
+
+   wg.Wait()
+}
+
+<span class="hljs-keyword">var</span> generators [<span class="hljs-number">20</span>]*rand.Rand
+
+<span class="hljs-keyword">func</span> init() {
+   <span class="hljs-keyword">for</span> i := <span class="hljs-keyword">int64</span>(<span class="hljs-number">0</span>); i &lt; <span class="hljs-number">20</span>; i++  {
+      generators[i] = rand.New(rand.NewSource(i).(rand.Source64))
+   }
+}
+
+<span class="hljs-keyword">type</span> gen <span class="hljs-keyword">int</span>
+<span class="hljs-comment">//go:noinline</span>
+<span class="hljs-keyword">func</span> (g gen) readNumber() <span class="hljs-keyword">int</span> {
+   <span class="hljs-keyword">return</span> generators[<span class="hljs-keyword">int</span>(g)].Intn(<span class="hljs-number">10</span>)
+}
+</code></pre>
+<p>&#x6211;&#x4EEC;&#x6765;&#x770B;&#x4E00;&#x4E0B;&#x8FD9;&#x6BB5;&#x4EE3;&#x7801;&#x7684; tracing &#x60C5;&#x51B5;&#xFF1A;
+<img src="../img/preemption-03.png" alt="STW_goroutines_preemption">
+<br></p>
+<p>&#x6211;&#x4EEC;&#x4ECE;&#x4E0B;&#x9762;&#x7684;&#x7EC6;&#x8282;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF0C;goroutine &#x5728;&#x51FD;&#x6570;&#x5E8F;&#x8A00;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5C31;&#x5DF2;&#x7ECF;&#x88AB;&#x62A2;&#x5360;&#xFF1A;</p>
+<p><img src="../img/preemption-4.png" alt="STW_goroutines_preemption">
+<br></p>
+<p>&#x6211;&#x4EEC;&#x901A;&#x8FC7;&#x8FD9;&#x4E2A;&#x4F8B;&#x5B50;&#x7684;<a href="https://golang.org/doc/asm" target="_blank">asm</a>&#x4EE3;&#x7801;&#x7247;&#x6BB5;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF0C;&#x8FD9;&#x6BB5;&#x68C0;&#x67E5;&#x52A8;&#x4F5C;&#x662F;&#x7F16;&#x8BD1;&#x5668;&#x81EA;&#x52A8;&#x52A0;&#x5165;&#x7684;&#xFF1A;
+<img src="../img/preemption-5.png" alt="STW_goroutines_preemption">
+<br></p>
+<p>&#x8FD0;&#x884C;&#x65F6;&#xFF08;Runtime&#xFF09;&#x901A;&#x8FC7;&#x5728;&#x6BCF;&#x4E2A;&#x51FD;&#x6570;&#x5E8F;&#x8A00;&#x4E2D;&#x63D2;&#x5165;&#x6307;&#x4EE4;&#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x6765;&#x4FDD;&#x8BC1;&#x6808;&#x7A7A;&#x95F4;&#x7684;&#x6301;&#x7EED;&#x8FD0;&#x884C;&#x3002;&#x540C;&#x65F6;&#xFF0C;&#x8FD9;&#x4E9B;&#x51FD;&#x6570;&#x5E8F;&#x8A00;&#x4E2D;&#x7684;&#x6307;&#x4EE4;&#x4E5F;&#x4FDD;&#x8BC1;&#x8C03;&#x5EA6;&#x5668;&#x7684;&#x6B63;&#x5E38;&#x8FD0;&#x884C;&#x3002;</p>
+<p>&#x5927;&#x90E8;&#x5206;&#x60C5;&#x51B5;&#xFF0C;goroutine &#x4F1A;&#x5141;&#x8BB8;&#x8C03;&#x5EA6;&#x5668;&#x6765;&#x6267;&#x884C;&#x4ED6;&#x4EEC;&#xFF0C;&#x4F46;&#x662F;&#x5982;&#x679C;&#x4E00;&#x4E2A;&#x5FAA;&#x73AF;&#x6CA1;&#x6709;&#x4EFB;&#x4F55;&#x51FD;&#x6570;&#x8C03;&#x7528;&#xFF0C;&#x5B83;&#x662F;&#x4E0D;&#x4F1A;&#x88AB;&#x8C03;&#x5EA6;&#x5668;&#x5207;&#x6362;&#x8C03;&#x5EA6;&#x7684;&#xFF0C;&#x8FD9;&#x4E2A;&#x662F;&#x4E00;&#x4E2A;&#x5178;&#x578B;&#x7684;&#x9700;&#x8981;&#x5F3A;&#x5236;&#x62A2;&#x5360;&#x7684;&#x4F8B;&#x5B50;&#x3002;</p>
+<h2 id="&#x5F3A;&#x5236;&#x62A2;&#x5360;">&#x5F3A;&#x5236;&#x62A2;&#x5360;</h2>
+<p>&#x6211;&#x4EEC;&#x8FD8;&#x662F;&#x901A;&#x8FC7;&#x4E00;&#x4E2A;&#x4F8B;&#x5B50;&#x6765;&#x770B;&#x63A2;&#x7A76;&#x4E00;&#x4E2A;&#x6CA1;&#x6709;&#x51FD;&#x6570;&#x8C03;&#x7528;&#x7684;&#x5FAA;&#x73AF;&#x662F;&#x5982;&#x4F55;&#x65E0;&#x6CD5;&#x88AB;&#x8C03;&#x5EA6;&#x7684;&#xFF1A;</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+   <span class="hljs-keyword">var</span> total <span class="hljs-keyword">int</span>
+   <span class="hljs-keyword">var</span> wg sync.WaitGroup
+
+   <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">20</span>; i++ {
+      wg.Add(<span class="hljs-number">1</span>)
+      Go <span class="hljs-keyword">func</span>() {
+         <span class="hljs-keyword">for</span> j := <span class="hljs-number">0</span>; j &lt; <span class="hljs-number">1e6</span>; j++ {
+            total ++
+         }
+         wg.Done()
+      }()
+   }
+
+   wg.Wait()
+}
+</code></pre>
+<p>&#x7531;&#x4E8E;&#x6CA1;&#x6709;&#x51FD;&#x6570;&#x8C03;&#x7528;&#xFF0C;&#x6240;&#x6709;&#x7684; Goroutine &#x6C38;&#x8FDC;&#x90FD;&#x4E0D;&#x4F1A;&#x88AB; block&#xFF0C;&#x6240;&#x4EE5;&#x8C03;&#x5EA6;&#x5668;&#x6CA1;&#x6709;&#x62A2;&#x5360;&#x8FD9;&#x4E9B; goroutine&#x3002;&#x6211;&#x4EEC;&#x6765;&#x770B;&#x4E00;&#x4E0B; tracing &#x4E2D;&#x7684;&#x72B6;&#x6001;&#xFF1A;<em>&#xFF08;&#x6240;&#x6709;&#x7684; goroutines &#x6CA1;&#x6709;&#x88AB;&#x62A2;&#x5360;&#xFF09;</em>
+<img src="../img/preemption-6.png" alt="STW_goroutines_preemption">
+<br></p>
+<p>&#x4E3A;&#x4E86;&#x89E3;&#x51B3;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#xFF0C;Go &#x63D0;&#x4F9B;&#x4E86;&#x591A;&#x79CD;&#x7684;&#x89E3;&#x51B3;&#x529E;&#x6CD5;&#xFF1A;</p>
+<ul>
+<li><p>&#x901A;&#x8FC7;&#x8C03;&#x7528; <code>runtime.Gosched()</code> &#x5F3A;&#x5236;&#x8C03;&#x5EA6;&#x5668;&#x8FDB;&#x884C;&#x8C03;&#x5EA6;&#x64CD;&#x4F5C;:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">for</span> j := <span class="hljs-number">0</span>; j &lt; <span class="hljs-number">1e8</span>; j++ {
+ <span class="hljs-keyword">if</span> j % <span class="hljs-number">1e7</span> == <span class="hljs-number">0</span> {
+    runtime.Gosched()
+ }
+ total ++
+}
+</code></pre>
+<p>&#x6211;&#x4EEC;&#x518D;&#x770B;&#x770B;&#x4E00;&#x4E0B;&#x4E0A;&#x9762;&#x8FD9;&#x6BB5;&#x7A0B;&#x5E8F;&#x7684; tracing&#xFF1A;
+<img src="../img/preemption-7.png" alt="STW_goroutines_preemption">
+<br></p>
+</li>
+<li><p>&#x901A;&#x8FC7; Go &#x7684;&#x914D;&#x7F6E;&#xFF0C;&#x4F7F;&#x5F97;&#x5FAA;&#x73AF;&#x53EF;&#x4EE5;&#x88AB;&#x62A2;&#x5360;&#x3002;&#x5177;&#x4F53;&#x6765;&#x8BF4;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; <code>GOEXPERIMENT=preemptibleloops</code> &#x6307;&#x4EE4;&#x6765;&#x91CD;&#x5EFA; Go &#x7684;&#x5DE5;&#x5177;&#x94FE;&#xFF08;toolchain&#xFF09;&#x6216;&#x8005;&#x5728;&#x4F7F;&#x7528; <code>go build</code> &#x7684;&#x65F6;&#x5019;&#xFF0C;&#x52A0;&#x4E0A; <code>-gcflags -d=ssa/insert_resched_checks/on</code> &#x8FD9;&#x4E2A;&#x53C2;&#x6570;&#x3002;</p>
+<p> &#x6211;&#x4EEC;&#x56DE;&#x5230;&#x4E4B;&#x524D;&#x90A3;&#x6BB5;&#x6CA1;&#x6709;&#x88AB;&#x62A2;&#x5360;&#x7684;&#x5FAA;&#x73AF;&#x4EE3;&#x7801;&#xFF0C;&#x901A;&#x8FC7;&#x4FEE;&#x6539;&#x914D;&#x7F6E;&#xFF0C;&#x5FAA;&#x73AF;&#x88AB;&#x62A2;&#x5360;&#xFF0C;&#x4E0B;&#x9762;&#x662F; tracing &#x72B6;&#x6001;&#xFF1A;
+ <img src="../img/preemption-8.png" alt="STW_goroutines_preemption">
+ <br></p>
+<p> &#x4ECE;&#x4E0B;&#x9762;&#x8FD9;&#x6BB5;&#x4EE3;&#x7801;&#x5BF9;&#x5E94;&#x7684; SSA&#xFF08;Static Single Assignment&#xFF09;&#x4EE3;&#x7801;&#x4E2D;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF0C;&#x5F53;&#x6211;&#x4EEC;&#x901A;&#x8FC7;&#x914D;&#x7F6E;&#x6FC0;&#x6D3B;&#x4E86;&#x5FAA;&#x73AF;&#x4E2D;&#x7684;&#x62A2;&#x5360;&#x673A;&#x5236;&#xFF0C;&#x7F16;&#x8BD1;&#x5668;&#x4F1A;&#x5728; SSA &#x4EE3;&#x7801;&#x4E2D;&#x52A0;&#x5165;&#x4E00;&#x6BB5; <code>insert resched checks</code> &#x7684; <code>pass</code>&#xFF1A;
+ <img src="../img/preemption-9.png" alt="STW_goroutines_preemption">
+ <br></p>
+<p> &#x8FD9;&#x6BB5; <code>pass</code> &#x4F1A;&#x65B0;&#x52A0;&#x5165;&#x4E00;&#x7CFB;&#x5217;&#x6307;&#x4EE4;&#xFF0C;&#x4EE5;&#x8C03;&#x7528;&#x8C03;&#x5EA6;&#x5668;&#xFF1A;</p>
+<pre><code>![STW_goroutines_preemption](../img/preemption-10.png)
+</code></pre><p> <br></p>
+<p> &#x5173;&#x4E8E; Go &#x7F16;&#x8BD1;&#x5668;&#x7684;&#x5B9E;&#x73B0;&#x539F;&#x7406;&#xFF0C;&#x8BF7;&#x53C2;&#x8003;&#x6211;&#x7684;&#x53E6;&#x4E00;&#x7BC7;&#x6587;&#x7AE0; <a href="https://medium.com/a-journey-with-go/go-overview-of-the-compiler-4e5a153ca889" target="_blank">&quot;Go: &#x7F16;&#x8BD1;&#x5668;&#x603B;&#x89C8;&quot;</a></p>
+<p> &#x4E0D;&#x8FC7;&#xFF0C;&#x4ECB;&#x4E8E;&#x5728;&#x8FD9;&#x79CD;&#x6A21;&#x5F0F;&#x4E0B;&#xFF0C;&#x8C03;&#x5EA6;&#x5668;&#x53EF;&#x80FD;&#x4F1A;&#x88AB;&#x5F3A;&#x5236;&#x89E6;&#x53D1;&#x591A;&#x6B21;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x7684;&#x4EE3;&#x7801;&#x6548;&#x7387;&#x4F1A;&#x6BD4;&#x6CA1;&#x5F00;&#x542F;&#x8BBE;&#x7F6E;&#x7684;&#x65F6;&#x5019;&#x4F4E;&#x4E00;&#x4E9B;&#x3002;&#x4E0B;&#x9762;&#x662F;&#x5F00;&#x542F;&#x524D;&#x540E;&#x7684;&#x5BF9;&#x6BD4;&#x60C5;&#x51B5;&#xFF1A;</p>
+<pre><code> name    old time/op  new time/op  delta
+ Loop-8   2.18s &#xB1; 2%   2.05s &#xB1; 1%  -6.23%
+</code></pre></li>
+</ul>
+<h2 id="&#x540E;&#x7EED;&#x6539;&#x8FDB;">&#x540E;&#x7EED;&#x6539;&#x8FDB;</h2>
+<p>&#x76EE;&#x524D;&#xFF0C;&#x8C03;&#x5EA6;&#x5668;&#x4F7F;&#x7528;&#x534F;&#x4F5C;&#x5F0F;&#x62A2;&#x5360;&#x6280;&#x672F;&#xFF0C;&#x8FD9;&#x79CD;&#x6280;&#x672F;&#x5728;&#x53EF;&#x4EE5;&#x652F;&#x6301;&#x5927;&#x90E8;&#x5206;&#x4F7F;&#x7528;&#x573A;&#x666F;&#x3002;&#x4F46;&#x662F;&#xFF0C;&#x5728;&#x4E00;&#x4E9B;&#x7279;&#x6B8A;&#x573A;&#x666F;&#x4E2D;&#xFF0C;&#x5B83;&#x4E5F;&#x4F1A;&#x6210;&#x4E3A;&#x75DB;&#x70B9;&#x6240;&#x5728;&#x3002;&#x6240;&#x4EE5;&#xFF0C;&#x4E00;&#x7BC7;&#x6587;&#x7AE0;&#x63D0;&#x51FA;&#x4E86;&#x53E6;&#x4E00;&#x79CD; &#x201C;&#x975E;&#x534F;&#x4F5C;&#x5F0F;&#x62A2;&#x5360;&#x201D;&#x65B9;&#x6848;&#xFF0C;&#x65E8;&#x5728;&#x89E3;&#x51B3;&#x5982;&#x4E0B;&#x95EE;&#x9898;&#xFF1A;</p>
+<p><em>&#x6211;&#x63D0;&#x8BAE; Go &#x8F6C;&#x5411;&#x4F7F;&#x7528; &#x201C;&#x975E;&#x534F;&#x4F5C;&#x5F0F;&#x62A2;&#x5360;&#x201D;&#x7684;&#x5B9E;&#x73B0;&#x65B9;&#x5F0F;&#xFF0C;&#x4F7F;&#x5F97; Goroutine &#x53EF;&#x4EE5;&#x5728;&#x5FC5;&#x8981;&#x7684;&#x65F6;&#x5019;&#x88AB;&#x62A2;&#x5360;&#xFF0C;&#x800C;&#x4E0D;&#x518D;&#x9700;&#x8981;&#x663E;&#x793A;&#x7684;&#x505A;&#x62A2;&#x5360;&#x68C0;&#x67E5;&#x3002;&#x8FD9;&#x6837;&#x5C31;&#x53EF;&#x4EE5;&#x89E3;&#x51B3;&#x62A2;&#x5360;&#x5EF6;&#x8FDF;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x4E5F;&#x4F1A;&#x51CF;&#x5C11;&#x8FD0;&#x884C;&#x65F6;&#x7684;&#x5F00;&#x9500;&#x3002;</em></p>
+<p>&#x540C;&#x65F6;&#x8FD9;&#x7BC7;&#x6587;&#x7AE0;&#x4E5F;&#x5BF9;&#x6BD4;&#x4E86;&#x51E0;&#x79CD;&#x5B9E;&#x73B0;&#x6280;&#x672F;&#x7684;&#x5229;&#x5F0A;&#xFF0C;&#x9884;&#x8BA1;&#x8FD9;&#x4E2A;&#x201C;&#x975E;&#x534F;&#x4F5C;&#x5F0F;&#x62A2;&#x5360;&#x201D;&#x4F1A;&#x5728;&#x4E0B;&#x4E00;&#x4E2A; Go &#x7248;&#x672C;&#x4E2D;&#x5B9E;&#x73B0;&#x3002;</p>
+<hr>
+<p>via: <a href="https://medium.com/a-journey-with-go/go-goroutine-and-preemption-d6bc2aa2f4b7" target="_blank">https://medium.com/a-journey-with-go/go-goroutine-and-preemption-d6bc2aa2f4b7</a></p>
+<p>&#x4F5C;&#x8005;&#xFF1A;<a href="https://medium.com/@blanchon.vincent" target="_blank">Vincent Blanchon</a></p>
+<p>&#x8BD1;&#x8005;: <a href="https://github.com/SarahChenBJ" target="_blank">SarahC</a></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="Go-Concurrency-And-Scheduler-Affinity.html" class="navigation navigation-prev " aria-label="Previous page: Go: Concurrency & Scheduler Affinity">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="Go-Work-Stealing-in-Go-Scheduler.html" class="navigation navigation-next " aria-label="Next page: Go: Work-Stealing in Go Scheduler">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Go: Goroutine and Preemption","level":"1.2.7","depth":2,"next":{"title":"Go: Work-Stealing in Go Scheduler","level":"1.2.8","depth":2,"path":"goroutine/Go-Work-Stealing-in-Go-Scheduler.md","ref":"goroutine/Go-Work-Stealing-in-Go-Scheduler.md","articles":[]},"previous":{"title":"Go: Concurrency & Scheduler Affinity","level":"1.2.6","depth":2,"path":"goroutine/Go-Concurrency-And-Scheduler-Affinity.md","ref":"goroutine/Go-Concurrency-And-Scheduler-Affinity.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":".","styles":{"website":"styles/website.css","ebook":"styles/ebook.css","pdf":"styles/pdf.css","mobi":"styles/mobi.css","epub":"styles/epub.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"goroutine/Go-Goroutine-and-Preemption.md","mtime":"2022-07-02T20:42:24.079Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-07-02T20:43:10.347Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

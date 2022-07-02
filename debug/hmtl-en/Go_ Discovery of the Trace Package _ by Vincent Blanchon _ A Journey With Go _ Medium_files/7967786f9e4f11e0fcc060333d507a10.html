@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<!-- saved from url=(0057)https://medium.com/media/7967786f9e4f11e0fcc060333d507a10 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Medium - Tracing – Medium</title><meta name="description" content="You can&#39;t perform that action at this time. You signed in with another tab or window. You signed out in another tab or window. Reload to refresh your session. Reload to refresh your session."><meta name="twitter:widgets:csp" content="on"><meta name="robots" content="noindex"><!--<base target="_blank">--><base href="." target="_blank"><style>body {text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-family: "ff-tisa-web-pro", Georgia, Cambria, "Times New Roman", Times, serif; font-weight: 400; color: #333332; font-size: 18px; line-height: 1.4; margin: 0; background-color: white; overflow: hidden;}iframe {max-width: 100%;}</style></head><body data-new-gr-c-s-loaded="14.1063.0"><style>.gist .gist-file { margin-bottom: 0 !important; }.gist { text-rendering: auto; }</style><script src="./18fc9dd743066d14bb29bdae2131c6c4.js" charset="utf-8"></script><link rel="stylesheet" href="./gist-embed-39872b2714d6.css"><div id="gist99597989" class="gist">
+    <div class="gist-file" translate="no">
+      <div class="gist-data">
+        <div class="js-gist-file-update-container js-task-list-container file-box">
+  <div id="file-task-go" class="file my-2">
+    
+    <div itemprop="text" class="Box-body p-0 blob-wrapper data type-go  ">
+
+        
+<div class="js-check-bidi js-blob-code-container blob-code-content">
+
+  <template class="js-file-alert-template"></template>
+<template class="js-line-alert-template"></template>
+
+  <table class="highlight tab-size js-file-line-container js-code-nav-container js-tagsearch-file" data-tab-size="8" data-paste-markdown-skip="" data-tagsearch-lang="Go" data-tagsearch-path="task.go">
+        <tbody><tr>
+          <td id="file-task-go-L1" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="1"></td>
+          <td id="file-task-go-LC1" class="blob-code blob-code-inner js-file-line"><span class="pl-k">func</span> <span class="pl-en">main</span>() {</td>
+        </tr>
+        <tr>
+          <td id="file-task-go-L2" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="2"></td>
+          <td id="file-task-go-LC2" class="blob-code blob-code-inner js-file-line">	<span class="pl-s1">ctx</span>, <span class="pl-s1">task</span> <span class="pl-c1">:=</span> <span class="pl-s1">trace</span>.<span class="pl-en">NewTask</span>(<span class="pl-s1">context</span>.<span class="pl-en">Background</span>(), <span class="pl-s">"main start"</span>)</td>
+        </tr>
+        <tr>
+          <td id="file-task-go-L3" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="3"></td>
+          <td id="file-task-go-LC3" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-task-go-L4" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="4"></td>
+          <td id="file-task-go-LC4" class="blob-code blob-code-inner js-file-line">	<span class="pl-k">var</span> <span class="pl-s1">wg</span> sync.<span class="pl-smi">WaitGroup</span></td>
+        </tr>
+        <tr>
+          <td id="file-task-go-L5" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="5"></td>
+          <td id="file-task-go-LC5" class="blob-code blob-code-inner js-file-line">	<span class="pl-s1">wg</span>.<span class="pl-en">Add</span>(<span class="pl-c1">2</span>)</td>
+        </tr>
+        <tr>
+          <td id="file-task-go-L6" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="6"></td>
+          <td id="file-task-go-LC6" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-task-go-L7" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="7"></td>
+          <td id="file-task-go-LC7" class="blob-code blob-code-inner js-file-line">	<span class="pl-k">go</span> <span class="pl-k">func</span>() {</td>
+        </tr>
+        <tr>
+          <td id="file-task-go-L8" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="8"></td>
+          <td id="file-task-go-LC8" class="blob-code blob-code-inner js-file-line">		<span class="pl-k">defer</span> <span class="pl-s1">wg</span>.<span class="pl-en">Done</span>()</td>
+        </tr>
+        <tr>
+          <td id="file-task-go-L9" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="9"></td>
+          <td id="file-task-go-LC9" class="blob-code blob-code-inner js-file-line">		<span class="pl-s1">r</span> <span class="pl-c1">:=</span> <span class="pl-s1">trace</span>.<span class="pl-en">StartRegion</span>(<span class="pl-s1">ctx</span>, <span class="pl-s">"reading file"</span>)</td>
+        </tr>
+        <tr>
+          <td id="file-task-go-L10" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="10"></td>
+          <td id="file-task-go-LC10" class="blob-code blob-code-inner js-file-line">		<span class="pl-k">defer</span> <span class="pl-s1">r</span>.<span class="pl-en">End</span>()</td>
+        </tr>
+        <tr>
+          <td id="file-task-go-L11" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="11"></td>
+          <td id="file-task-go-LC11" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-task-go-L12" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="12"></td>
+          <td id="file-task-go-LC12" class="blob-code blob-code-inner js-file-line">		<span class="pl-s1">ioutil</span>.<span class="pl-en">ReadFile</span>(<span class="pl-s">`n1.txt`</span>)</td>
+        </tr>
+        <tr>
+          <td id="file-task-go-L13" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="13"></td>
+          <td id="file-task-go-LC13" class="blob-code blob-code-inner js-file-line">	}()</td>
+        </tr>
+        <tr>
+          <td id="file-task-go-L14" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="14"></td>
+          <td id="file-task-go-LC14" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-task-go-L15" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="15"></td>
+          <td id="file-task-go-LC15" class="blob-code blob-code-inner js-file-line">	<span class="pl-k">go</span> <span class="pl-k">func</span>() {</td>
+        </tr>
+        <tr>
+          <td id="file-task-go-L16" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="16"></td>
+          <td id="file-task-go-LC16" class="blob-code blob-code-inner js-file-line">		<span class="pl-k">defer</span> <span class="pl-s1">wg</span>.<span class="pl-en">Done</span>()</td>
+        </tr>
+        <tr>
+          <td id="file-task-go-L17" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="17"></td>
+          <td id="file-task-go-LC17" class="blob-code blob-code-inner js-file-line">		<span class="pl-s1">r</span> <span class="pl-c1">:=</span> <span class="pl-s1">trace</span>.<span class="pl-en">StartRegion</span>(<span class="pl-s1">ctx</span>, <span class="pl-s">"writing file"</span>)</td>
+        </tr>
+        <tr>
+          <td id="file-task-go-L18" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="18"></td>
+          <td id="file-task-go-LC18" class="blob-code blob-code-inner js-file-line">		<span class="pl-k">defer</span> <span class="pl-s1">r</span>.<span class="pl-en">End</span>()</td>
+        </tr>
+        <tr>
+          <td id="file-task-go-L19" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="19"></td>
+          <td id="file-task-go-LC19" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-task-go-L20" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="20"></td>
+          <td id="file-task-go-LC20" class="blob-code blob-code-inner js-file-line">		<span class="pl-s1">ioutil</span>.<span class="pl-en">WriteFile</span>(<span class="pl-s">`n2.txt`</span>, []<span class="pl-smi">byte</span>(<span class="pl-s">`42`</span>), <span class="pl-c1">0644</span>)</td>
+        </tr>
+        <tr>
+          <td id="file-task-go-L21" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="21"></td>
+          <td id="file-task-go-LC21" class="blob-code blob-code-inner js-file-line">	}()</td>
+        </tr>
+        <tr>
+          <td id="file-task-go-L22" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="22"></td>
+          <td id="file-task-go-LC22" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-task-go-L23" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="23"></td>
+          <td id="file-task-go-LC23" class="blob-code blob-code-inner js-file-line">	<span class="pl-s1">wg</span>.<span class="pl-en">Wait</span>()</td>
+        </tr>
+        <tr>
+          <td id="file-task-go-L24" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="24"></td>
+          <td id="file-task-go-LC24" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-task-go-L25" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="25"></td>
+          <td id="file-task-go-LC25" class="blob-code blob-code-inner js-file-line">	<span class="pl-k">defer</span> <span class="pl-s1">task</span>.<span class="pl-en">End</span>()</td>
+        </tr>
+        <tr>
+          <td id="file-task-go-L26" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="26"></td>
+          <td id="file-task-go-LC26" class="blob-code blob-code-inner js-file-line">}</td>
+        </tr>
+  </tbody></table>
+</div>
+
+
+    </div>
+
+  </div>
+</div>
+
+      </div>
+      <div class="gist-meta">
+        <a href="https://gist.github.com/blanchonvincent/18fc9dd743066d14bb29bdae2131c6c4/raw/5c5799e7a166709d46adb88de147c145f76454ae/task.go" style="float:right">view raw</a>
+        <a href="https://gist.github.com/blanchonvincent/18fc9dd743066d14bb29bdae2131c6c4#file-task-go">
+          task.go
+        </a>
+        hosted with ❤ by <a href="https://github.com/">GitHub</a>
+      </div>
+    </div>
+</div>
+<script>var height = -1; var delayMs = 200; if (document) {document.domain = document.domain;}function notifyResize(height) {height = height ? height : document.documentElement.offsetHeight; var resized = false; if (window.donkey && donkey.resize) {donkey.resize(height);var elements = document.getElementsByClassName("gist-data"); for (var i = 0; i < elements.length; i++) {elements[i].style.overflow = "visible"}resized = true;}if (parent && parent._resizeIframe) {var obj = {iframe: window.frameElement, height: height}; parent._resizeIframe(obj); resized = true;}if (window.location && window.location.hash === "#amp=1" && window.parent && window.parent.postMessage) {window.parent.postMessage({sentinel: "amp", type: "embed-size", height: height}, "*");}if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.resize) {window.webkit.messageHandlers.resize.postMessage(height); resized = true;}return resized;}function maybeResize() {try {if (document.documentElement.offsetHeight != height && notifyResize()) {height = document.documentElement.offsetHeight;}delayMs = Math.min(delayMs * 2, 1000000); setTimeout(maybeResize, delayMs);} catch(error) {console.log('maybeResize error: ', error)}}maybeResize();</script><script defer="" src="./v652eace1692a40cfa3763df669d7439c1639079717194" integrity="sha512-Gi7xpJR8tSkrpF7aordPZQlW2DLtzUlZcumS8dMQjwDHEnw9I7ZLyiOj/6tZStRBGtGgN6ceN6cMH8z7etPGlw==" data-cf-beacon="{&quot;rayId&quot;:&quot;718480934d9f17b9&quot;,&quot;token&quot;:&quot;0b5f665943484354a59c39c6833f7078&quot;,&quot;version&quot;:&quot;2021.12.0&quot;,&quot;si&quot;:100}" crossorigin="anonymous"></script>
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>

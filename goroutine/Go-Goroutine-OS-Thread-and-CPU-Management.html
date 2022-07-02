@@ -1,0 +1,721 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Go: Goroutine, OS Thread and CPU Management · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="Go-Improve-the-Usage-of-Your-Goroutines-with-GODEBUG.html" />
+    
+    
+    <link rel="prev" href="Go-Work-Stealing-in-Go-Scheduler.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="list.html">
+            
+                <a href="list.html">
+            
+                    
+                    GOROUTINE
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="Go-How-Does-a-Goroutine-Start-and-Exit.html">
+            
+                <a href="Go-How-Does-a-Goroutine-Start-and-Exit.html">
+            
+                    
+                    Go:How Does a Goroutine Start and Exit?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="Go-gsignal-Master-of-Signals.html">
+            
+                <a href="Go-gsignal-Master-of-Signals.html">
+            
+                    
+                    Go: gsignal, Master of Signals
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="Go-How-Does-a-Goroutine-Start-and-Exit.html">
+            
+                <a href="Go-How-Does-a-Goroutine-Start-and-Exit.html">
+            
+                    
+                    Go:What Does a Goroutine Switch Actually Involve?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" >
+            
+                <span>
+            
+                    
+                    Go:How Does Go Recycle Goroutines?
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="Go-g0-Special-Goroutine.html">
+            
+                <a href="Go-g0-Special-Goroutine.html">
+            
+                    
+                    Go:g0, Special Goroutine
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6" data-path="Go-Concurrency-And-Scheduler-Affinity.html">
+            
+                <a href="Go-Concurrency-And-Scheduler-Affinity.html">
+            
+                    
+                    Go: Concurrency & Scheduler Affinity
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7" data-path="Go-Goroutine-and-Preemption.html">
+            
+                <a href="Go-Goroutine-and-Preemption.html">
+            
+                    
+                    Go: Goroutine and Preemption
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8" data-path="Go-Work-Stealing-in-Go-Scheduler.html">
+            
+                <a href="Go-Work-Stealing-in-Go-Scheduler.html">
+            
+                    
+                    Go: Work-Stealing in Go Scheduler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2.9" data-path="Go-Goroutine-OS-Thread-and-CPU-Management.html">
+            
+                <a href="Go-Goroutine-OS-Thread-and-CPU-Management.html">
+            
+                    
+                    Go: Goroutine, OS Thread and CPU Management
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.10" data-path="Go-Improve-the-Usage-of-Your-Goroutines-with-GODEBUG.html">
+            
+                <a href="Go-Improve-the-Usage-of-Your-Goroutines-with-GODEBUG.html">
+            
+                    
+                    Go: Improve the Usage of Your Goroutines with GODEBUG
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.11" data-path="Go-How-Does-the-Goroutine-Stack-Size-Evolve.html">
+            
+                <a href="Go-How-Does-the-Goroutine-Stack-Size-Evolve.html">
+            
+                    
+                    Go: How Does the Goroutine Stack Size Evolve?
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../gc/list.html">
+            
+                <a href="../gc/list.html">
+            
+                    
+                    GARGAGE COLLECTOR
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-memory-management-and-memory-sweep-cc71b484de05">
+            
+                    
+                    Memory Management and Memory Sweep
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-how-does-the-garbage-collector-mark-the-memory-72cfc12c6976">
+            
+                    
+                    Go: How Does the Garbage Collector Mark the Memory?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-how-does-the-garbage-collector-watch-your-application-dbef99be2c35">
+            
+                    
+                    Go: How Does the Garbage Collector Watch Your Application?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-keeping-a-variable-alive-c28e3633673a">
+            
+                    
+                    Go: Keeping a Variable Alive
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../compiler/list.html">
+            
+                <a href="../compiler/list.html">
+            
+                    
+                    COMPILER
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-overview-of-the-compiler-4e5a153ca889">
+            
+                    
+                    Go: Overview of the Compiler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-built-in-functions-optimizations-70c5abb3a680">
+            
+                    
+                    Go: Built-in Functions Optimizations
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-introduction-to-the-escape-analysis-f7610174e890">
+            
+                    
+                    Go: Introduction to the Escape Analysis
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-how-to-take-advantage-of-the-symbols-table-360dd52269e5">
+            
+                    
+                    Go: How to Take Advantage of the Symbols Table
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-aliases-simple-and-efficient-8506d93b079e">
+            
+                    
+                    Go: Aliases, Simple and Efficient
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-slice-and-memory-management-670498bb52be">
+            
+                    
+                    Go: Slice and Memory Management
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.7" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-memory-safety-with-bounds-check-1397bef748b5">
+            
+                    
+                    Go: Memory safety with Bounds Check
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.8" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-inlining-strategy-limitation-6b6d7fc3b1be">
+            
+                    
+                    Go: Inlining Strategy & Limitation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.9" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-how-are-loops-translated-to-assembly-835b985309b3">
+            
+                    
+                    Go: How Are Loops Translated to Assembly
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../package/list.html">
+            
+                <a href="../package/list.html">
+            
+                    
+                    PACKAGE
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../debug/list.html">
+            
+                <a href="../debug/list.html">
+            
+                    
+                    DEBUG
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Go: Goroutine, OS Thread and CPU Management</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="go-goroutine-os-&#x7EBF;&#x7A0B;&#x53CA;-cpu-&#x7BA1;&#x7406;">Go: Goroutine, OS &#x7EBF;&#x7A0B;&#x53CA; CPU &#x7BA1;&#x7406;</h1>
+<p>&#x2139;&#xFE0F; <em>&#x672C;&#x6587;&#x57FA;&#x4E8E; Go 1.13</em></p>
+<p>&#x5BF9;&#x4E8E;&#x4E00;&#x4E2A;&#x7A0B;&#x5E8F;&#x6765;&#x8BF4;&#xFF0C;&#x4ECE;&#x5185;&#x5B58;&#x548C;&#x6027;&#x80FD;&#x89D2;&#x5EA6;&#x8BB2;&#x521B;&#x5EFA;&#x4E00;&#x4E2A; OS &#x7EBF;&#x7A0B;&#x6216;&#x5207;&#x6362;&#x7EBF;&#x7A0B;&#x82B1;&#x8D39;&#x5DE8;&#x5927;&#x3002;Go &#x5FD7;&#x5728;&#x6781;&#x5C3D;&#x6240;&#x80FD;&#x5730;&#x5145;&#x5206;&#x5229;&#x7528;&#x5185;&#x6838;&#x8D44;&#x6E90;&#x3002;&#x4ECE;&#x7B2C;&#x4E00;&#x5929;&#x5F00;&#x59CB;&#xFF0C;&#x5B83;&#x5C31;&#x662F;&#x4E3A;&#x5E76;&#x53D1;&#x800C;&#x751F;&#x7684;&#x3002;</p>
+<h2 id="m-p-g-&#x7F16;&#x6392;">M, P, G &#x7F16;&#x6392;</h2>
+<p>&#x4E3A;&#x4E86;&#x89E3;&#x51B3;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#xFF0C;Go &#x6709;&#x5B83;&#x81EA;&#x5DF1;&#x7684;&#x5728;&#x7EBF;&#x7A0B;&#x95F4;&#x8C03;&#x5EA6;&#x534F;&#x7A0B;&#x7684;&#x8C03;&#x5EA6;&#x5668;&#x3002;&#x8FD9;&#x4E2A;&#x8C03;&#x5EA6;&#x5668;&#x5B9A;&#x4E49;&#x4E86;&#x4E09;&#x4E2A;&#x4E3B;&#x8981;&#x6982;&#x5FF5;&#xFF0C;&#x5982;&#x6E90;&#x7801;&#x4E2D;&#x89E3;&#x91CA;&#x7684;&#x8FD9;&#x6837;&#xFF1A;</p>
+<pre><code>The main concepts are:
+G - goroutine.
+M - worker thread, or machine.
+P - processor, a resource that is required to execute Go code.
+    M must have an associated P to execute Go code[...].
+</code></pre><p><code>P</code>, <code>M</code>, <code>G</code> &#x6A21;&#x578B;&#x56FE;&#x89E3;&#xFF1A;</p>
+<p><img src="../img/goroutine-os-cpu-01.png" alt="P, M, G diagram"></p>
+<p>&#x6BCF;&#x4E2A;&#x534F;&#x7A0B;&#xFF08;<code>G</code>&#xFF09;&#x8FD0;&#x884C;&#x5728;&#x4E0E;&#x4E00;&#x4E2A;&#x903B;&#x8F91; CPU&#xFF08;<code>P</code>&#xFF09;&#x76F8;&#x5173;&#x8054;&#x7684; OS &#x7EBF;&#x7A0B;&#xFF08;<code>M</code>&#xFF09;&#x4E0A;&#x3002;&#x6211;&#x4EEC;&#x4E00;&#x8D77;&#x901A;&#x8FC7;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x793A;&#x4F8B;&#x6765;&#x770B; Go &#x662F;&#x600E;&#x4E48;&#x7BA1;&#x7406;&#x4ED6;&#x4EEC;&#x7684;&#xFF1A;</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+   <span class="hljs-keyword">var</span> wg sync.WaitGroup
+   wg.Add(<span class="hljs-number">2</span>)
+
+   Go <span class="hljs-keyword">func</span>() {
+      <span class="hljs-built_in">println</span>(<span class="hljs-string">`hello`</span>)
+      wg.Done()
+   }()
+
+   Go <span class="hljs-keyword">func</span>() {
+      <span class="hljs-built_in">println</span>(<span class="hljs-string">`world`</span>)
+      wg.Done()
+   }()
+
+   wg.Wait()
+}
+</code></pre>
+<p>&#x9996;&#x5148;&#xFF0C;Go &#x6839;&#x636E;&#x673A;&#x5668;&#x903B;&#x8F91; CPU &#x7684;&#x4E2A;&#x6570;&#x6765;&#x521B;&#x5EFA;&#x4E0D;&#x540C;&#x7684; <code>P</code>&#xFF0C;&#x5E76;&#x4E14;&#x628A;&#x5B83;&#x4EEC;&#x4FDD;&#x5B58;&#x5728;&#x4E00;&#x4E2A;&#x7A7A;&#x95F2; <code>P</code> &#x7684; list &#x91CC;&#x3002;</p>
+<p><img src="../img/goroutine-os-cpu-02.png" alt="P initialization"></p>
+<p>&#x7136;&#x540E;&#xFF0C;&#x4E3A;&#x4E86;&#x66F4;&#x597D;&#x5730;&#x5DE5;&#x4F5C;&#x65B0;&#x521B;&#x5EFA;&#x7684;&#x5DF2;&#x7ECF;&#x51C6;&#x5907;&#x597D;&#x7684;&#x534F;&#x7A0B;&#x4F1A;&#x5524;&#x9192;&#x4E00;&#x4E2A; <code>P</code>&#x3002;&#x8FD9;&#x4E2A; <code>P</code> &#x901A;&#x8FC7;&#x4E0E;&#x4E4B;&#x76F8;&#x5173;&#x8054;&#x7684; OS &#x7EBF;&#x7A0B;&#x6765;&#x521B;&#x5EFA;&#x4E00;&#x4E2A; <code>M</code>&#xFF1A;</p>
+<p><img src="../img/goroutine-os-cpu-03.png" alt="OS thread creation"></p>
+<p>&#x7136;&#x800C;&#xFF0C;&#x50CF; <code>P</code> &#x90A3;&#x6837;&#xFF0C;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x8FD4;&#x56DE;&#x7684;&#x751A;&#x81F3;&#x88AB; gc &#x5F3A;&#x884C;&#x505C;&#x6B62;&#x7684;&#x7A7A;&#x95F2;&#x7684; <code>M</code> &#x2014; &#x6BD4;&#x5982;&#x6CA1;&#x6709;&#x534F;&#x7A0B;&#x5728;&#x7B49;&#x5F85;&#x8FD0;&#x884C; &#x2014; &#x4E5F;&#x4F1A;&#x88AB;&#x52A0;&#x5230;&#x4E00;&#x4E2A;&#x7A7A;&#x95F2; list&#xFF1A;</p>
+<p><img src="../img/goroutine-os-cpu-04.png" alt="M and P idle list"></p>
+<p>&#x5728;&#x7A0B;&#x5E8F;&#x542F;&#x52A8;&#x9636;&#x6BB5;&#xFF0C;Go &#x5C31;&#x5DF2;&#x7ECF;&#x521B;&#x5EFA;&#x4E86;&#x4E00;&#x4E9B; OS &#x7EBF;&#x7A0B;&#x5E76;&#x4E0E; <code>M</code> &#x60F3;&#x5173;&#x8054;&#x4E86;&#x3002;&#x5728;&#x6211;&#x4EEC;&#x7684;&#x4F8B;&#x5B50;&#x4E2D;&#xFF0C;&#x6253;&#x5370; <code>hello</code> &#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x534F;&#x7A0B;&#x4F1A;&#x4F7F;&#x7528;&#x4E3B;&#x534F;&#x7A0B;&#xFF0C;&#x7B2C;&#x4E8C;&#x4E2A;&#x4F1A;&#x4ECE;&#x8FD9;&#x4E2A;&#x7A7A;&#x95F2; list &#x4E2D;&#x83B7;&#x53D6;&#x4E00;&#x4E2A; <code>M</code> &#x548C; <code>P</code>&#xFF1A;</p>
+<p><img src="../img/goroutine-os-cpu-05.png" alt="M and P pulled from the idle list"></p>
+<p>&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x5DF2;&#x7ECF;&#x638C;&#x63E1;&#x4E86;&#x534F;&#x7A0B;&#x548C;&#x7EBF;&#x7A0B;&#x7BA1;&#x7406;&#x7684;&#x57FA;&#x672C;&#x8981;&#x4E49;&#xFF0C;&#x6765;&#x4E00;&#x8D77;&#x770B;&#x770B;&#x4EC0;&#x4E48;&#x60C5;&#x5F62;&#x4E0B; Go &#x4F1A;&#x7528;&#x6BD4; <code>P</code> &#x591A;&#x7684; <code>M</code>&#xFF0C;&#x5728;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x65F6;&#x600E;&#x4E48;&#x7BA1;&#x7406;&#x534F;&#x7A0B;&#x3002;</p>
+<h2 id="&#x7CFB;&#x7EDF;&#x8C03;&#x7528;">&#x7CFB;&#x7EDF;&#x8C03;&#x7528;</h2>
+<p>Go &#x4F1A;&#x4F18;&#x5316;&#x7CFB;&#x7EDF;&#x8C03;&#x7528; &#x2014; &#x65E0;&#x8BBA;&#x963B;&#x585E;&#x4E0E;&#x5426; &#x2014; &#x901A;&#x8FC7;&#x8FD0;&#x884C;&#x65F6;&#x5C01;&#x88C5;&#x4ED6;&#x4EEC;&#x3002;&#x5C01;&#x88C5;&#x7684;&#x90A3;&#x4E00;&#x5C42;&#x4F1A;&#x628A; <code>P</code> &#x548C;&#x7EBF;&#x7A0B; <code>M</code> &#x5206;&#x79BB;&#xFF0C;&#x5E76;&#x4E14;&#x53EF;&#x4EE5;&#x8BA9;&#x53E6;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x5728;&#x5B83;&#x4E0A;&#x9762;&#x8FD0;&#x884C;&#x3002;&#x6211;&#x4EEC;&#x62FF;&#x6587;&#x4EF6;&#x8BFB;&#x53D6;&#x4E3E;&#x4F8B;&#xFF1A;</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+   buf := <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">byte</span>, <span class="hljs-number">0</span>, <span class="hljs-number">2</span>)
+
+   fd, _ := os.Open(<span class="hljs-string">&quot;number.txt&quot;</span>)
+   fd.Read(buf)
+   fd.Close()
+
+   <span class="hljs-built_in">println</span>(<span class="hljs-keyword">string</span>(buf)) <span class="hljs-comment">// 42</span>
+}
+</code></pre>
+<p>&#x6587;&#x4EF6;&#x8BFB;&#x53D6;&#x7684;&#x6D41;&#x7A0B;&#x5982;&#x4E0B;&#xFF1A;</p>
+<p><img src="../img/goroutine-os-cpu-06.png" alt="Syscall handoffs P"></p>
+<p><code>P0</code> &#x73B0;&#x5728;&#x5728;&#x7A7A;&#x95F2; list &#x4E2D;&#xFF0C;&#x6709;&#x53EF;&#x80FD;&#x88AB;&#x5524;&#x9192;&#x3002;&#x5F53;&#x7CFB;&#x7EDF;&#x8C03;&#x7528; exit &#x65F6;&#xFF0C;Go &#x4F1A;&#x9075;&#x5B88;&#x4E0B;&#x9762;&#x7684;&#x89C4;&#x5219;&#xFF0C;&#x76F4;&#x5230;&#x6709;&#x4E00;&#x4E2A;&#x547D;&#x4E2D;&#x4E86;&#x3002;</p>
+<ul>
+<li>&#x5C1D;&#x8BD5;&#x53BB;&#x6355;&#x83B7;&#x76F8;&#x540C;&#x7684; <code>P</code>&#xFF0C;&#x5728;&#x6211;&#x4EEC;&#x7684;&#x4F8B;&#x5B50;&#x4E2D;&#x5C31;&#x662F; <code>P0</code>&#xFF0C;&#x7136;&#x540E; resume &#x6267;&#x884C;&#x8FC7;&#x7A0B;</li>
+<li>&#x5C1D;&#x8BD5;&#x4ECE;&#x7A7A;&#x95F2; list &#x4E2D;&#x6355;&#x83B7;&#x4E00;&#x4E2A; <code>P</code>&#xFF0C;&#x7136;&#x540E; resume &#x6267;&#x884C;&#x8FC7;&#x7A0B;</li>
+<li>&#x628A;&#x534F;&#x7A0B;&#x653E;&#x5230;&#x5168;&#x5C40;&#x961F;&#x5217;&#x91CC;&#xFF0C;&#x628A;&#x4E0E;&#x4E4B;&#x76F8;&#x5173;&#x8054;&#x7684; <code>M</code> &#x653E;&#x56DE;&#x7A7A;&#x95F2; list &#x53BB;</li>
+</ul>
+<p>&#x7136;&#x800C;&#xFF0C;&#x5728;&#x50CF; http &#x8BF7;&#x6C42;&#x7B49; non-blocking I/O &#x60C5;&#x5F62;&#x4E0B;&#xFF0C;Go &#x5728;&#x8D44;&#x6E90;&#x6CA1;&#x6709;&#x51C6;&#x5907;&#x597D;&#x65F6;&#x4E5F;&#x4F1A;&#x5904;&#x7406;&#x8BF7;&#x6C42;&#x3002;&#x5728;&#x8FD9;&#x79CD;&#x60C5;&#x5F62;&#x4E0B;&#xFF0C;&#x7B2C;&#x4E00;&#x4E2A;&#x7CFB;&#x7EDF;&#x8C03;&#x7528; &#x2014; &#x9075;&#x5FAA;&#x4E0A;&#x8FF0;&#x6D41;&#x7A0B;&#x56FE; &#x2014; &#x7531;&#x4E8E;&#x8D44;&#x6E90;&#x8FD8;&#x6CA1;&#x6709;&#x51C6;&#x5907;&#x597D;&#x6240;&#x4EE5;&#x4E0D;&#x4F1A;&#x6210;&#x529F;&#xFF0C;&#xFF08;&#x8FD9;&#x6837;&#x5C31;&#xFF09;&#x8FEB;&#x4F7F; Go &#x4F7F;&#x7528; network poller &#x5E76;&#x4F7F;&#x534F;&#x7A0B;&#x505C;&#x9A7B;&#x3002;&#x8BF7;&#x770B;&#x793A;&#x4F8B;&#xFF1A;</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+   http.Get(<span class="hljs-string">`https://httpstat.us/200`</span>)
+}
+</code></pre>
+<p>&#x5F53;&#x7B2C;&#x4E00;&#x4E2A;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x5B8C;&#x6210;&#x4E14;&#x663E;&#x5F0F;&#x5730;&#x58F0;&#x660E;&#x4E86;&#x8D44;&#x6E90;&#x8FD8;&#x6CA1;&#x6709;&#x51C6;&#x5907;&#x597D;&#xFF0C;&#x534F;&#x7A0B;&#x4F1A;&#x5728; network poller &#x901A;&#x77E5;&#x5B83;&#x8D44;&#x6E90;&#x51C6;&#x5907;&#x5C31;&#x7EEA;&#x4E4B;&#x524D;&#x4E00;&#x76F4;&#x5904;&#x4E8E;&#x505C;&#x9A7B;&#x72B6;&#x6001;&#x3002;&#x5728;&#x8FD9;&#x79CD;&#x60C5;&#x5F62;&#x4E0B;&#xFF0C;&#x7EBF;&#x7A0B; <code>M</code> &#x4E0D;&#x4F1A;&#x963B;&#x585E;&#xFF1A;</p>
+<p><img src="../img/goroutine-os-cpu-07.png" alt="Network poller waiting for the resource"></p>
+<p>&#x5728; Go &#x8C03;&#x5EA6;&#x5668;&#x5728;&#x7B49;&#x5F85;&#x4FE1;&#x606F;&#x65F6;&#x534F;&#x7A0B;&#x4F1A;&#x518D;&#x6B21;&#x8FD0;&#x884C;&#x3002;&#x8C03;&#x5EA6;&#x5668;&#x5728;&#x83B7;&#x53D6;&#x5230;&#x7B49;&#x5F85;&#x7684;&#x4FE1;&#x606F;&#x540E;&#x4F1A;&#x8BE2;&#x95EE; network poller &#x662F;&#x5426;&#x6709;&#x534F;&#x7A0B;&#x5728;&#x7B49;&#x5F85;&#x88AB;&#x8FD0;&#x884C;&#x3002;</p>
+<p><img src="../img/goroutine-os-cpu-08.png" alt=""></p>
+<p>&#x5982;&#x679C;&#x591A;&#x4E2A;&#x534F;&#x7A0B;&#x90FD;&#x51C6;&#x5907;&#x597D;&#x4E86;&#xFF0C;&#x53EA;&#x6709;&#x4E00;&#x4E2A;&#x4F1A;&#x88AB;&#x8FD0;&#x884C;&#xFF0C;&#x5176;&#x4ED6;&#x7684;&#x4F1A;&#x88AB;&#x52A0;&#x5230;&#x5168;&#x5C40;&#x7684;&#x53EF;&#x8FD0;&#x884C;&#x961F;&#x5217;&#x4E2D;&#xFF0C;&#x4EE5;&#x5907;&#x540E;&#x7EED;&#x7684;&#x8C03;&#x5EA6;&#x3002;</p>
+<h2 id="os-&#x7EBF;&#x7A0B;&#x65B9;&#x9762;&#x7684;&#x9650;&#x5236;">OS &#x7EBF;&#x7A0B;&#x65B9;&#x9762;&#x7684;&#x9650;&#x5236;</h2>
+<p>&#x5728;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x4E2D;&#xFF0C;Go &#x4E0D;&#x4F1A;&#x9650;&#x5236;&#x53EF;&#x963B;&#x585E;&#x7684; OS &#x7EBF;&#x7A0B;&#x6570;&#xFF0C;&#x6E90;&#x7801;&#x4E2D;&#x6709;&#x89E3;&#x91CA;&#xFF1A;</p>
+<blockquote>
+<p><em>The GOMAXPROCS variable limits the number of operating system threads that can execute user-level Go code simultaneously. There is no limit to the number of threads that can be blocked in system calls on behalf of Go code; those do not count against the GOMAXPROCS limit. This package&#x2019;s GOMAXPROCS function queries and changes the limit.</em></p>
+</blockquote>
+<p>&#x8BD1;&#x6CE8;&#xFF1A;<strong>GOMAXPROCS</strong> &#x53D8;&#x91CF;&#x8868;&#x793A;&#x53EF;&#x540C;&#x65F6;&#x8FD0;&#x884C;&#x7528;&#x6237;&#x7EA7; Go &#x4EE3;&#x7801;&#x7684;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x7EBF;&#x7A0B;&#x7684;&#x6700;&#x5927;&#x6570;&#x91CF;&#x3002;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x4E2D;&#x53EF;&#x88AB;&#x963B;&#x585E;&#x7684;&#x6700;&#x5927;&#x7EBF;&#x7A0B;&#x6570;&#x5E76;&#x6CA1;&#x6709;&#x9650;&#x5236;&#xFF1B;&#x53EF;&#x88AB;&#x963B;&#x585E;&#x7684;&#x7EBF;&#x7A0B;&#x6570;&#x5BF9; <strong>GOMAXPROCS</strong> &#x6CA1;&#x6709;&#x5F71;&#x54CD;&#x3002;&#x8FD9;&#x4E2A;&#x5305;&#x7684; <strong><em>GOMAXPROCS</em></strong> &#x51FD;&#x6570;&#x67E5;&#x8BE2;&#x548C;&#x4FEE;&#x6539;&#x8FD9;&#x4E2A;&#x6700;&#x5927;&#x6570;&#x9650;&#x5236;&#x3002;</p>
+<p>&#x5BF9;&#x8FD9;&#x79CD;&#x60C5;&#x5F62;&#x4E3E;&#x4F8B;&#xFF1A;</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+   <span class="hljs-keyword">var</span> wg sync.WaitGroup
+
+   <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>;i &lt; <span class="hljs-number">100</span> ;i++  {
+      wg.Add(<span class="hljs-number">1</span>)
+
+      Go <span class="hljs-keyword">func</span>() {
+         http.Get(<span class="hljs-string">`https://httpstat.us/200?sleep=10000`</span>)
+
+         wg.Done()
+      }()
+   }
+
+   wg.Wait()
+}
+</code></pre>
+<p>&#x5229;&#x7528;&#x8FFD;&#x8E2A;&#x5DE5;&#x5177;&#x5F97;&#x5230;&#x7684;&#x7EBF;&#x7A0B;&#x6570;&#x5982;&#x4E0B;&#xFF1A;</p>
+<p><img src="../img/goroutine-os-cpu-09.png" alt=""></p>
+<p>&#x7531;&#x4E8E; Go &#x4F18;&#x5316;&#x4E86;&#x7EBF;&#x7A0B;&#x4F7F;&#x7528;&#xFF0C;&#x6240;&#x4EE5;&#x5F53;&#x534F;&#x7A0B;&#x963B;&#x585E;&#x65F6;&#xFF0C;&#x5B83;&#x4ECD;&#x53EF;&#x590D;&#x7528;&#xFF0C;&#x8FD9;&#x5C31;&#x89E3;&#x91CA;&#x4E86;&#x4E3A;&#x4EC0;&#x4E48;&#x56FE;&#x4E2D;&#x7684;&#x6570;&#x8DDF;&#x793A;&#x4F8B;&#x4EE3;&#x7801;&#x5FAA;&#x73AF;&#x4E2D;&#x7684;&#x6570;&#x4E0D;&#x4E00;&#x81F4;&#x3002;</p>
+<hr>
+<p>via: <a href="https://medium.com/a-journey-with-go/go-goroutine-os-thread-and-cpu-management-2f5a5eaf518a" target="_blank">https://medium.com/a-journey-with-go/go-goroutine-os-thread-and-cpu-management-2f5a5eaf518a</a></p>
+<p>&#x4F5C;&#x8005;&#xFF1A;<a href="https://medium.com/@blanchon.vincent" target="_blank">Vincent Blanchon</a></p>
+<p>&#x8BD1;&#x8005;: <a href="https://github.com/SarahChenBJ" target="_blank">SarahC</a></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="Go-Work-Stealing-in-Go-Scheduler.html" class="navigation navigation-prev " aria-label="Previous page: Go: Work-Stealing in Go Scheduler">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="Go-Improve-the-Usage-of-Your-Goroutines-with-GODEBUG.html" class="navigation navigation-next " aria-label="Next page: Go: Improve the Usage of Your Goroutines with GODEBUG">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Go: Goroutine, OS Thread and CPU Management","level":"1.2.9","depth":2,"next":{"title":"Go: Improve the Usage of Your Goroutines with GODEBUG","level":"1.2.10","depth":2,"path":"goroutine/Go-Improve-the-Usage-of-Your-Goroutines-with-GODEBUG.md","ref":"goroutine/Go-Improve-the-Usage-of-Your-Goroutines-with-GODEBUG.md","articles":[]},"previous":{"title":"Go: Work-Stealing in Go Scheduler","level":"1.2.8","depth":2,"path":"goroutine/Go-Work-Stealing-in-Go-Scheduler.md","ref":"goroutine/Go-Work-Stealing-in-Go-Scheduler.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":".","styles":{"website":"styles/website.css","ebook":"styles/ebook.css","pdf":"styles/pdf.css","mobi":"styles/mobi.css","epub":"styles/epub.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"goroutine/Go-Goroutine-OS-Thread-and-CPU-Management.md","mtime":"2022-07-02T20:42:24.079Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-07-02T20:43:10.347Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

@@ -1,0 +1,706 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Go: Concurrency & Scheduler Affinity · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="Go-Goroutine-and-Preemption.html" />
+    
+    
+    <link rel="prev" href="Go-g0-Special-Goroutine.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="list.html">
+            
+                <a href="list.html">
+            
+                    
+                    GOROUTINE
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="Go-How-Does-a-Goroutine-Start-and-Exit.html">
+            
+                <a href="Go-How-Does-a-Goroutine-Start-and-Exit.html">
+            
+                    
+                    Go:How Does a Goroutine Start and Exit?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="Go-gsignal-Master-of-Signals.html">
+            
+                <a href="Go-gsignal-Master-of-Signals.html">
+            
+                    
+                    Go: gsignal, Master of Signals
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="Go-How-Does-a-Goroutine-Start-and-Exit.html">
+            
+                <a href="Go-How-Does-a-Goroutine-Start-and-Exit.html">
+            
+                    
+                    Go:What Does a Goroutine Switch Actually Involve?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" >
+            
+                <span>
+            
+                    
+                    Go:How Does Go Recycle Goroutines?
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="Go-g0-Special-Goroutine.html">
+            
+                <a href="Go-g0-Special-Goroutine.html">
+            
+                    
+                    Go:g0, Special Goroutine
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2.6" data-path="Go-Concurrency-And-Scheduler-Affinity.html">
+            
+                <a href="Go-Concurrency-And-Scheduler-Affinity.html">
+            
+                    
+                    Go: Concurrency & Scheduler Affinity
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7" data-path="Go-Goroutine-and-Preemption.html">
+            
+                <a href="Go-Goroutine-and-Preemption.html">
+            
+                    
+                    Go: Goroutine and Preemption
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8" data-path="Go-Work-Stealing-in-Go-Scheduler.html">
+            
+                <a href="Go-Work-Stealing-in-Go-Scheduler.html">
+            
+                    
+                    Go: Work-Stealing in Go Scheduler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9" data-path="Go-Goroutine-OS-Thread-and-CPU-Management.html">
+            
+                <a href="Go-Goroutine-OS-Thread-and-CPU-Management.html">
+            
+                    
+                    Go: Goroutine, OS Thread and CPU Management
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.10" data-path="Go-Improve-the-Usage-of-Your-Goroutines-with-GODEBUG.html">
+            
+                <a href="Go-Improve-the-Usage-of-Your-Goroutines-with-GODEBUG.html">
+            
+                    
+                    Go: Improve the Usage of Your Goroutines with GODEBUG
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.11" data-path="Go-How-Does-the-Goroutine-Stack-Size-Evolve.html">
+            
+                <a href="Go-How-Does-the-Goroutine-Stack-Size-Evolve.html">
+            
+                    
+                    Go: How Does the Goroutine Stack Size Evolve?
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../gc/list.html">
+            
+                <a href="../gc/list.html">
+            
+                    
+                    GARGAGE COLLECTOR
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-memory-management-and-memory-sweep-cc71b484de05">
+            
+                    
+                    Memory Management and Memory Sweep
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-how-does-the-garbage-collector-mark-the-memory-72cfc12c6976">
+            
+                    
+                    Go: How Does the Garbage Collector Mark the Memory?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-how-does-the-garbage-collector-watch-your-application-dbef99be2c35">
+            
+                    
+                    Go: How Does the Garbage Collector Watch Your Application?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-keeping-a-variable-alive-c28e3633673a">
+            
+                    
+                    Go: Keeping a Variable Alive
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../compiler/list.html">
+            
+                <a href="../compiler/list.html">
+            
+                    
+                    COMPILER
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-overview-of-the-compiler-4e5a153ca889">
+            
+                    
+                    Go: Overview of the Compiler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-built-in-functions-optimizations-70c5abb3a680">
+            
+                    
+                    Go: Built-in Functions Optimizations
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-introduction-to-the-escape-analysis-f7610174e890">
+            
+                    
+                    Go: Introduction to the Escape Analysis
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-how-to-take-advantage-of-the-symbols-table-360dd52269e5">
+            
+                    
+                    Go: How to Take Advantage of the Symbols Table
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-aliases-simple-and-efficient-8506d93b079e">
+            
+                    
+                    Go: Aliases, Simple and Efficient
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-slice-and-memory-management-670498bb52be">
+            
+                    
+                    Go: Slice and Memory Management
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.7" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-memory-safety-with-bounds-check-1397bef748b5">
+            
+                    
+                    Go: Memory safety with Bounds Check
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.8" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-inlining-strategy-limitation-6b6d7fc3b1be">
+            
+                    
+                    Go: Inlining Strategy & Limitation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.9" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-how-are-loops-translated-to-assembly-835b985309b3">
+            
+                    
+                    Go: How Are Loops Translated to Assembly
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../package/list.html">
+            
+                <a href="../package/list.html">
+            
+                    
+                    PACKAGE
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../debug/list.html">
+            
+                <a href="../debug/list.html">
+            
+                    
+                    DEBUG
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Go: Concurrency & Scheduler Affinity</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="go-&#x5E76;&#x53D1;&#x53CA;&#x8C03;&#x5EA6;&#x5668;&#x7684;&#x4EB2;&#x5408;&#x6027;&#x539F;&#x7406;">Go: &#x5E76;&#x53D1;&#x53CA;&#x8C03;&#x5EA6;&#x5668;&#x7684;&#x4EB2;&#x5408;&#x6027;&#x539F;&#x7406;</h1>
+<p>  &#x5C06; Goroutine &#x4ECE;&#x4E00;&#x4E2A; OS &#x7EBF;&#x7A0B;&#x5207;&#x6362;&#x5230;&#x53E6;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x9700;&#x8981;&#x4E00;&#x5B9A;&#x5F00;&#x9500;&#xFF0C;&#x5E76;&#x4E14;&#xFF0C;&#x5982;&#x679C;&#x8FD9;&#x79CD;&#x64CD;&#x4F5C;&#x8FC7;&#x4E8E;&#x9891;&#x7E41;&#x7684;&#x8BDD;&#x4F1A;&#x964D;&#x4F4E;&#x5E94;&#x7528;&#x6027;&#x80FD;&#x3002;&#x65E0;&#x8BBA;&#x5982;&#x4F55;&#xFF0C;&#x968F;&#x7740;&#x65F6;&#x95F4;&#x7684;&#x6D41;&#x901D;&#xFF0C;Go &#x7684;&#x8C03;&#x5EA6;&#x5668;&#x5DF2;&#x7ECF;&#x89E3;&#x51B3;&#x4E86;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#x3002;&#x73B0;&#x5728;&#xFF0C;&#x5F53;&#x5E76;&#x53D1;&#x5DE5;&#x4F5C;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x8C03;&#x5EA6;&#x5668;&#x63D0;&#x4F9B;&#x4E86; Goroutine &#x548C;&#x7EBF;&#x7A0B;&#x4E4B;&#x95F4;&#x7684;&#x4EB2;&#x548C;&#x6027;&#x3002;&#x8BA9;&#x6211;&#x4EEC;&#x56DE;&#x987E;&#x5386;&#x53F2;&#x6765;&#x4E86;&#x89E3;&#x8FD9;&#x4E00;&#x6539;&#x8FDB;&#x3002;</p>
+<h2 id="&#x6700;&#x521D;&#x7684;&#x95EE;&#x9898;">&#x6700;&#x521D;&#x7684;&#x95EE;&#x9898;</h2>
+<p>&#x5728; Go &#x7684;&#x65E9;&#x671F;&#x9636;&#x6BB5;&#xFF0C;Go 1.0 &#x548C; 1.1&#xFF0C;&#x5F53;&#x4EE5;&#x66F4;&#x591A;&#x7684; OS &#x7EBF;&#x7A0B;&#xFF08;&#x5373;&#xFF0C;&#x66F4;&#x9AD8;&#x7684; <code>GOMAXPROCS</code> &#x7684;&#x503C;&#xFF09;&#x8FD0;&#x884C;&#x5E76;&#x53D1;&#x4EE3;&#x7801;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x8BE5;&#x8BED;&#x8A00;&#x4F1A;&#x9762;&#x4E34;&#x6027;&#x80FD;&#x4E0B;&#x964D;&#x7684;&#x95EE;&#x9898;&#x3002;&#x8BA9;&#x6211;&#x4EEC;&#x4EE5;&#x4E00;&#x4E2A;&#x5728;&#x6587;&#x6863;&#x4E2D;&#x4F7F;&#x7528;&#x7684;&#x793A;&#x4F8B;&#x5F00;&#x59CB;&#xFF0C;&#x8BE5;&#x793A;&#x4F8B;&#x8BA1;&#x7B97;&#x8D28;&#x6570;&#xFF1A;</p>
+<p><img src="../img/ccn-scheduler-affinity-1.png" alt=""></p>
+<p>&#x8FD9;&#x662F;&#x5728; Go 1.0.3&#xFF0C;&#x4F7F;&#x7528;&#x4E0D;&#x540C; <code>GOMAXPROCS</code> &#x503C;&#x8BA1;&#x7B97;&#x524D;&#x5341;&#x4E07;&#x4E2A;&#x8D28;&#x6570;&#x7684;&#x57FA;&#x51C6;&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;&#xFF1A;</p>
+<pre><code class="lang-bash">name     time/op
+Sieve    19.2s &#xB1; 0%
+Sieve-2  19.3s &#xB1; 0%
+Sieve-4  20.4s &#xB1; 0%
+Sieve-8  20.4s &#xB1; 0%
+</code></pre>
+<p>&#x8981;&#x7406;&#x89E3;&#x8FD9;&#x6837;&#x7684;&#x7ED3;&#x679C;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x5148;&#x7406;&#x89E3;&#x5F53;&#x65F6;&#x8C03;&#x5EA6;&#x5668;&#x662F;&#x5982;&#x4F55;&#x8BBE;&#x8BA1;&#x7684;&#x3002;&#x5728; Go &#x7684;&#x6700;&#x521D;&#x7248;&#x672C;&#xFF0C;&#x8C03;&#x5EA6;&#x5668;&#x53EA;&#x6709;&#x4E00;&#x4E2A;&#x5168;&#x5C40;&#x961F;&#x5217;&#xFF0C;&#x800C;&#x6240;&#x6709;&#x7684;&#x7EBF;&#x7A0B;&#x90FD;&#x53EF;&#x4EE5;&#x5411;&#x8BE5;&#x961F;&#x5217;&#x63A8;&#x9001;&#x548C;&#x83B7;&#x53D6;Goroutine&#x3002;&#x8FD9;&#x91CC;&#x662F;&#x4E00;&#x4E2A;&#x6700;&#x591A;&#x4EE5;&#x4E24;&#x4E2A;&#x7EBF;&#x7A0B;&#x8FD0;&#x884C;&#x7684;&#x5E94;&#x7528;&#x7684;&#x4F8B;&#x5B50;&#xFF0C;&#x7EBF;&#x7A0B;&#x6570;&#x901A;&#x8FC7;&#x5C06; <code>GOMAXPROCS</code> &#x8BBE;&#x7F6E;&#x4E3A; 2 &#x6765;&#x5B9A;&#x4E49;&#xFF0C;&#x800C;&#x7EBF;&#x7A0B;&#x4E5F;&#x662F;&#x4E4B;&#x540E;&#x7684;&#x67B6;&#x6784;&#x4E2D;&#x7684; <code>M</code>&#x3002;</p>
+<p><img src="../img/ccn-scheduler-affinity-2.png" alt="&#x6700;&#x521D;&#x7248;&#x672C;&#x7684;&#x8C03;&#x5EA6;&#x5668;&#x53EA;&#x6709;&#x4E00;&#x4E2A;&#x5168;&#x5C40;&#x961F;&#x5217;"></p>
+<p>&#x53EA;&#x6709;&#x4E00;&#x4E2A;&#x961F;&#x5217;&#x65E0;&#x6CD5;&#x4FDD;&#x8BC1; Goroutine &#x80FD;&#x591F;&#x88AB;&#x5206;&#x914D;&#x5230;&#x4E0E;&#x539F;&#x6765;&#x76F8;&#x540C;&#x7684;&#x7EBF;&#x7A0B;&#x4E0A;&#x3002;&#x6700;&#x5148;&#x5C31;&#x7EEA;&#x7684;&#x7EBF;&#x7A0B;&#x4F1A;&#x83B7;&#x53D6;&#x4E00;&#x4E2A;&#x7B49;&#x5F85;&#x72B6;&#x6001;&#x7684; Goroutine &#x5E76;&#x6267;&#x884C;&#x8BE5; Goroutine&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x8FD9;&#x6D89;&#x53CA; Goroutine &#x4ECE;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x8F6C;&#x79FB;&#x5230;&#x53E6;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#xFF0C;&#x800C;&#x8FD9;&#x5728;&#x6027;&#x80FD;&#x65B9;&#x9762;&#x5F00;&#x9500;&#x5F88;&#x5927;&#x3002;&#x8FD9;&#x91CC;&#x662F;&#x4E00;&#x4E2A;&#x963B;&#x585E; channel &#x7684;&#x4F8B;&#x5B50;&#xFF1A;</p>
+<ul>
+<li>7 &#x53F7; Goroutine &#x5728; channel &#x4E0A;&#x963B;&#x585E;&#x5E76;&#x4E14;&#x7B49;&#x5F85;&#x4FE1;&#x606F;&#x7684;&#x5230;&#x6765;&#x3002;&#x4E00;&#x65E6;&#x83B7;&#x53D6;&#x4FE1;&#x606F;&#xFF0C;&#x8BE5; Goroutine &#x5C31;&#x88AB;&#x653E;&#x5728;&#x5168;&#x5C40;&#x961F;&#x5217;&#x4E2D;&#xFF1A;</li>
+</ul>
+<p><img src="../img/ccn-scheduler-affinity-3.png" alt=""></p>
+<ul>
+<li>&#x4E4B;&#x540E;&#xFF0C;channel &#x63A8;&#x9001;&#x6D88;&#x606F;&#xFF0C;&#x5E76;&#x4E14; 8 &#x53F7; Goroutine &#x5728; channel &#x4E0A;&#x963B;&#x585E;&#xFF0C;&#x5728;&#x6B64;&#x671F;&#x95F4;&#xFF0C;X &#x53F7; Goroutine &#x4F1A;&#x5728;&#x53EF;&#x7528;&#x7EBF;&#x7A0B;&#x4E0A;&#x8FD0;&#x884C;&#x3002;</li>
+</ul>
+<p><img src="../img/ccn-scheduler-affinity-4.png" alt=""></p>
+<ul>
+<li>7 &#x53F7; Goroutine &#x73B0;&#x5728;&#x8FD0;&#x884C;&#x5728;&#x53EF;&#x7528;&#x7EBF;&#x7A0B;&#x4E0A;&#xFF1A;</li>
+</ul>
+<p><img src="../img/ccn-scheduler-affinity-5.png" alt=""></p>
+<p>Goroutine &#x73B0;&#x5982;&#x4ECA;&#x8FD0;&#x884C;&#x5728;&#x4E0E;&#x4E4B;&#x524D;&#x4E0D;&#x540C;&#x7684;&#x7EBF;&#x7A0B;&#x4E0A;&#x3002;&#x5177;&#x6709;&#x4E00;&#x4E2A;&#x5355;&#x4E00;&#x7684;&#x5168;&#x5C40;&#x961F;&#x5217;&#x4E5F;&#x8FEB;&#x4F7F;&#x8C03;&#x5EA6;&#x5668;&#x53BB;&#x6301;&#x6709;&#x4E00;&#x4E2A;&#x6DB5;&#x76D6;&#x6240;&#x6709; Goroutine &#x8C03;&#x5EA6;&#x64CD;&#x4F5C;&#x7684;&#xFF0C;&#x5355;&#x4E2A;&#x7684;&#x5168;&#x5C40;&#x4E92;&#x65A5;&#x9501;&#x3002;&#x8FD9;&#x91CC;&#x662F;&#x5C06; <code>GOMAXPROCS</code> &#x8C03;&#x9AD8;&#x540E;&#xFF0C;<code>pprof</code> &#x751F;&#x6210;&#x7684; CPU profile &#x4FE1;&#x606F;&#xFF1A;</p>
+<pre><code class="lang-bash">Total: 8679 samples
+3700  42.6%  42.6%     3700  42.6% runtime.procyield
+1055  12.2%  54.8%     1055  12.2% runtime.xchg
+753   8.7%  63.5%     1590   18.3% runtime.chanrecv
+677   7.8%  71.3%      677    7.8% dequeue
+438   5.0%  76.3%      438    5.0% runtime.futex
+367   4.2%  80.5%     5924   68.3% main.filter
+234   2.7%  83.2%     5005   57.7% runtime.lock
+230   2.7%  85.9%     3933   45.3% runtime.chansend
+214   2.5%  88.4%      214    2.5% runtime.osyield
+150   1.7%  90.1%      150    1.7% runtime.cas
+</code></pre>
+<p>&#x5176;&#x4E2D;&#x7684; <code>procyield</code>&#xFF0C;<code>xchg</code>&#xFF0C;<code>futex</code> &#x548C; <code>lock</code> &#x4E0E; Go &#x8C03;&#x5EA6;&#x5668;&#x7684;&#x5168;&#x5C40;&#x4E92;&#x65A5;&#x9501;&#x6709;&#x5173;&#x3002;&#x6211;&#x4EEC;&#x6E05;&#x695A;&#x5730;&#x770B;&#x5230;&#x5E94;&#x7528;&#x6D6A;&#x8D39;&#x4E86;&#x5927;&#x91CF;&#x65F6;&#x95F4;&#x5728;&#x9501;&#x4E0A;&#x3002;</p>
+<p>&#x8FD9;&#x4E9B;&#x95EE;&#x9898;&#x8BA9; Go &#x65E0;&#x6CD5;&#x5145;&#x5206;&#x53D1;&#x6325;&#x5904;&#x7406;&#x5668;&#x6027;&#x80FD;&#xFF0C;&#x800C;&#x4F7F;&#x7528;&#x4E86;&#x65B0;&#x8C03;&#x5EA6;&#x5668;&#x7684; Go 1.1 &#x89E3;&#x51B3;&#x4E86;&#x8FD9;&#x4E9B;&#x95EE;&#x9898;&#x3002;</p>
+<h2 id="&#x5E76;&#x53D1;&#x4E2D;&#x7684;&#x4EB2;&#x548C;&#x6027;">&#x5E76;&#x53D1;&#x4E2D;&#x7684;&#x4EB2;&#x548C;&#x6027;</h2>
+<p>Go 1.1 &#x5E26;&#x6765;&#x4E86;<a href="https://docs.google.com/document/d/1TTj4T2JO42uD5ID9e89oa0sLKhJYD0Y_kqxDv3I3XMw/edit?pli=1" target="_blank">&#x65B0;&#x7684;&#x8C03;&#x5EA6;&#x5668;&#x5B9E;&#x73B0;</a>&#x4EE5;&#x53CA;&#x672C;&#x5730; Goroutine &#x961F;&#x5217;&#x7684;&#x5EFA;&#x7ACB;&#x3002;&#x5982;&#x679C;&#x662F;&#x672C;&#x5730;&#x7684;Goroutine&#xFF0C;&#x8FD9;&#x4E2A;&#x63D0;&#x5347;&#x907F;&#x514D;&#x4E86;&#x5C06;&#x6574;&#x4E2A;&#x8C03;&#x5EA6;&#x5668;&#x9501;&#x4F4F;&#xFF0C;&#x540C;&#x65F6;&#x5141;&#x8BB8;&#x8FD9;&#x4E9B;&#x672C;&#x5730; Goroutine &#x8FD0;&#x884C;&#x5728;&#x4E0E;&#x539F;&#x6765;&#x4E00;&#x6837;&#x7684; OS &#x7EBF;&#x7A0B;&#x4E0A;&#x3002;</p>
+<p>&#x7531;&#x4E8E;&#x7EBF;&#x7A0B;&#x4F1A;&#x56E0;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x800C;&#x963B;&#x585E;&#xFF0C;&#x540C;&#x65F6;&#x963B;&#x585E;&#x7684;&#x7EBF;&#x7A0B;&#x6570;&#x662F;&#x6CA1;&#x6709;&#x9650;&#x5236;&#x7684;&#xFF0C;Go &#x5F15;&#x5165;&#x4E86;&#x5904;&#x7406;&#x5668;&#x7684;&#x6982;&#x5FF5;&#x3002;&#x4E00;&#x4E2A;&#x5904;&#x7406;&#x5668; <code>P</code> &#x4EE3;&#x8868;&#x4E00;&#x4E2A;&#x8FD0;&#x884C;&#x7684; OS &#x7EBF;&#x7A0B;&#xFF0C;&#x5E76;&#x4E14;&#x4F1A;&#x7BA1;&#x7406;&#x672C;&#x5730;&#x7684; Goroutine &#x961F;&#x5217;&#x3002;&#x8FD9;&#x662F;&#x65B0;&#x67B6;&#x6784;&#xFF1A;</p>
+<p><img src="../img/ccn-scheduler-affinity-6.png" alt=""></p>
+<p>&#x8FD9;&#x662F;&#x4F7F;&#x7528; Go 1.1.2 &#x4E2D;&#x65B0;&#x67B6;&#x6784;&#x7684;&#x65B0;&#x7684;&#x57FA;&#x51C6;&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;&#xFF1A;</p>
+<pre><code class="lang-bash">name     time/op
+Sieve    18.7s &#xB1; 0%
+Sieve-2  8.26s &#xB1; 0%
+Sieve-4  3.30s &#xB1; 0%
+Sieve-8  2.64s &#xB1; 0%
+</code></pre>
+<p>Go &#x73B0;&#x5728;&#x771F;&#x6B63;&#x5229;&#x7528;&#x4E86;&#x6240;&#x6709;&#x7684;&#x53EF;&#x7528; CPU&#x3002;CPU profile &#x4FE1;&#x606F;&#x4E5F;&#x540C;&#x6837;&#x4EA7;&#x751F;&#x4E86;&#x53D8;&#x5316;&#xFF1A;</p>
+<pre><code class="lang-bash">Total: 630 samples
+163  25.9%  25.9%      163  25.9% runtime.xchg
+113  17.9%  43.8%      610  96.8% main.filter
+93  14.8%  58.6%      265   42.1% runtime.chanrecv
+87  13.8%  72.4%      206   32.7% runtime.chansend
+72  11.4%  83.8%       72   11.4% dequeue
+19   3.0%  86.8%       19    3.0% runtime.memcopy64
+17   2.7%  89.5%      225   35.7% runtime.chansend1
+16   2.5%  92.1%      280   44.4% runtime.chanrecv2
+12   1.9%  94.0%      141   22.4% runtime.lock
+9   1.4%  95.4%       98    15.6% runqput
+</code></pre>
+<p>&#x5927;&#x591A;&#x6570;&#x4E0E;&#x9501;&#x76F8;&#x5173;&#x7684;&#x64CD;&#x4F5C;&#x90FD;&#x5DF2;&#x88AB;&#x79FB;&#x9664;&#xFF0C;&#x88AB;&#x6807;&#x8BB0;&#x4E3A; <code>chanXXXX</code> &#x7684;&#x64CD;&#x4F5C;&#x4EC5;&#x4EC5;&#x4E0E; channel &#x76F8;&#x5173;&#x3002;&#x7136;&#x800C;&#xFF0C;&#x5982;&#x679C;&#x8C03;&#x5EA6;&#x5668;&#x63D0;&#x5347;&#x4E86; Goroutine &#x4E0E;&#x7EBF;&#x7A0B;&#x4E4B;&#x95F4;&#x7684;&#x4EB2;&#x548C;&#xFF0C;&#x5728;&#x67D0;&#x4E9B;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x964D;&#x4F4E;&#x8FD9;&#x79CD;&#x4EB2;&#x548C;&#x3002;</p>
+<h2 id="&#x4EB2;&#x548C;&#x6027;&#x9650;&#x5236;">&#x4EB2;&#x548C;&#x6027;&#x9650;&#x5236;</h2>
+<p>&#x4E3A;&#x4E86;&#x7406;&#x89E3;&#x4EB2;&#x548C;&#x6027;&#x7684;&#x9650;&#x5236;&#xFF0C;&#x6211;&#x4EEC;&#x5FC5;&#x987B;&#x7406;&#x89E3;&#x672C;&#x5730;&#x548C;&#x5168;&#x5C40;&#x961F;&#x5217;&#x7684;&#x5185;&#x5BB9;&#x3002;&#x672C;&#x5730;&#x961F;&#x5217;&#x5C06;&#x88AB;&#x7528;&#x4E8E;&#x6240;&#x6709;&#x9700;&#x8981;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x7684;&#x64CD;&#x4F5C;&#xFF0C;&#x6BD4;&#x5982;&#x5728; channel &#x548C; select &#x4E0A;&#x7684;&#x963B;&#x585E;&#x64CD;&#x4F5C;&#xFF0C;&#x7B49;&#x5F85;&#x8BA1;&#x65F6;&#x5668;&#x548C;&#x9501;&#x3002;&#x603B;&#x4E4B;&#xFF0C;&#x4E24;&#x79CD;&#x529F;&#x80FD;&#x4F1A;&#x9650;&#x5236; Goroutine &#x548C;&#x7EBF;&#x7A0B;&#x4E4B;&#x95F4;&#x7684;&#x4EB2;&#x548C;&#x6027;&#xFF1A;</p>
+<ul>
+<li>&#x5DE5;&#x4F5C;&#x7A83;&#x53D6;&#xFF08;Work-stealing&#xFF09;&#x3002;&#x5F53;&#x4E00;&#x4E2A;&#x5904;&#x7406;&#x5668; <code>P</code> &#x7684;&#x672C;&#x5730;&#x961F;&#x5217;&#x6CA1;&#x6709;&#x8DB3;&#x591F;&#x7684;&#x4EFB;&#x52A1;&#xFF0C;&#x5982;&#x679C;&#x5168;&#x5C40;&#x961F;&#x5217;&#x548C;&#x7F51;&#x7EDC;&#x8F6E;&#x8BE2;&#x5668;&#x662F;&#x7A7A;&#x7684;&#xFF0C;&#x4F1A;&#x4ECE;&#x5176;&#x4ED6;&#x7684; <code>P</code> &#x90A3;&#x91CC;&#x7A83;&#x53D6;&#x4EFB;&#x52A1;&#x3002;&#x5F53;&#x5B8C;&#x6210;&#x7A83;&#x53D6;&#xFF0C;&#x88AB;&#x7A83;&#x53D6;&#x7684; Goroutine &#x5C06;&#x5728;&#x5176;&#x4ED6;&#x7EBF;&#x7A0B;&#x4E0A;&#x8FD0;&#x884C;&#x3002;</li>
+<li>&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x3002;&#x5F53;&#x4E00;&#x4E2A;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x53D1;&#x751F;&#xFF08;&#x4F8B;&#x5982;&#xFF0C;&#x6587;&#x4EF6;&#x64CD;&#x4F5C;&#xFF0C;http &#x901A;&#x4FE1;&#xFF0C;&#x6570;&#x636E;&#x5E93;&#x64CD;&#x4F5C;&#x7B49;&#xFF09;&#xFF0C;Go &#x4EE5;&#x4E00;&#x4E2A;&#x963B;&#x585E;&#x6A21;&#x5F0F;&#x79FB;&#x52A8;&#x6B63;&#x5728;&#x8FD0;&#x884C;&#x7684; OS &#x7EBF;&#x7A0B;&#xFF0C;&#x8BA9;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x7EBF;&#x7A0B;&#x5904;&#x7406;&#x5F53;&#x524D; <code>P</code> &#x7684;&#x672C;&#x5730;&#x961F;&#x5217;&#x3002;</li>
+</ul>
+<p>&#x7136;&#x800C;&#xFF0C;&#x901A;&#x8FC7;&#x66F4;&#x597D;&#x5730;&#x7BA1;&#x7406;&#x672C;&#x5730;&#x961F;&#x5217;&#x7684;&#x4F18;&#x5148;&#x7EA7;&#xFF0C;&#x8FD9;&#x4E24;&#x4E2A;&#x9650;&#x5236;&#x53EF;&#x4EE5;&#x907F;&#x514D;&#x3002;Go 1.5 &#x65E8;&#x5728;&#x7ED9;&#x4E88;&#x5728; channel &#x4E0A;&#x6765;&#x56DE;&#x901A;&#x4FE1;&#x7684; Goroutine &#x66F4;&#x591A;&#x4F18;&#x5148;&#x6743;&#xFF0C;&#x5E76;&#x56E0;&#x6B64;&#x4F18;&#x5316;&#x4E86;&#x4E0E;&#x88AB;&#x5206;&#x914D;&#x7684;&#x7EBF;&#x7A0B;&#x7684;&#x4EB2;&#x548C;&#x6027;&#x3002;</p>
+<h2 id="&#x4E3A;&#x4E86;&#x63D0;&#x5347;&#x4EB2;&#x548C;&#x6027;">&#x4E3A;&#x4E86;&#x63D0;&#x5347;&#x4EB2;&#x548C;&#x6027;</h2>
+<p>&#x5728; channel &#x4E0A;&#x6765;&#x56DE;&#x901A;&#x4FE1;&#x7684; Goroutine &#x6700;&#x7EC8;&#x4F1A;&#x9891;&#x7E41;&#x963B;&#x585E;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x50CF;&#x4E4B;&#x524D;&#x770B;&#x5230;&#x7684;&#x90A3;&#x6837;&#xFF0C;&#x9891;&#x7E41;&#x5728;&#x672C;&#x5730;&#x961F;&#x5217;&#x91CD;&#x65B0;&#x6392;&#x961F;&#x3002;&#x7136;&#x800C;&#xFF0C;&#x7531;&#x4E8E;&#x672C;&#x5730;&#x961F;&#x5217;&#x662F;&#x4E00;&#x4E2A; FIFO&#xFF08;&#x5148;&#x8FDB;&#x5148;&#x51FA;&#xFF09;&#x7684;&#x5B9E;&#x73B0;&#xFF0C;&#x5982;&#x679C;&#x5176;&#x4ED6; Goroutine &#x5360;&#x7528;&#x4E86;&#x7EBF;&#x7A0B;&#xFF0C;&#x89E3;&#x9664;&#x963B;&#x585E;&#x7684; Goroutine &#x65E0;&#x6CD5;&#x4FDD;&#x8BC1;&#x80FD;&#x591F;&#x5C3D;&#x5FEB;&#x8FD0;&#x884C;&#x3002;&#x8FD9;&#x662F;&#x4E00;&#x4E2A;&#x5148;&#x524D;&#x5728; channel &#x4E0A;&#x963B;&#x585E;&#xFF0C;&#x73B0;&#x5728;&#x53EF;&#x4EE5;&#x8FD0;&#x884C;&#x7684; Goroutine &#x7684;&#x4F8B;&#x5B50;&#xFF1A;</p>
+<p><img src="../img/ccn-scheduler-affinity-7.png" alt=""></p>
+<p>9 &#x53F7; Goroutine &#x5728; channel &#x4E0A;&#x963B;&#x585E;&#x540E;&#x6062;&#x590D;&#x3002;&#x7136;&#x540E;&#xFF0C;&#x5728;&#x5B83;&#x8FD0;&#x884C;&#x4E4B;&#x524D;&#x5FC5;&#x987B;&#x7B49;&#x5F85; 2 &#x53F7;&#xFF0C;5 &#x53F7;&#x548C; 4 &#x53F7;&#x5148;&#x8FD0;&#x884C;&#x3002;&#x5728;&#x8FD9;&#x4E2A;&#x4F8B;&#x5B50;&#x4E2D;&#xFF0C;5 &#x53F7; Goroutine &#x4F1A;&#x5360;&#x7528;&#x7EBF;&#x7A0B;&#xFF0C;&#x5EF6;&#x8FDF;&#x4E86; 9 &#x53F7; Goroutine &#x7684;&#x8FD0;&#x884C;&#xFF0C;&#x540C;&#x65F6;&#x4F7F;&#x5F97; 9 &#x53F7;&#x53EF;&#x80FD;&#x88AB;&#x5176;&#x4ED6;&#x5904;&#x7406;&#x5668;&#x6240;&#x7A83;&#x53D6;&#x3002;&#x4ECE; Go 1.5 &#x5F00;&#x59CB;&#xFF0C;&#x5F97;&#x76CA;&#x4E8E; <code>P</code> &#x7684;&#x7279;&#x6B8A;&#x5C5E;&#x6027;&#xFF0C;&#x4ECE;&#x963B;&#x585E; channel &#x8FD4;&#x56DE;&#x7684; Goroutine &#x4F1A;&#x4F18;&#x5148;&#x8FD0;&#x884C;&#xFF1A;</p>
+<p><img src="../img/ccn-scheduler-affinity-8.png" alt=""></p>
+<p>9 &#x53F7; Goroutine &#x73B0;&#x5728;&#x88AB;&#x6807;&#x8BB0;&#x4E3A;&#x4E0B;&#x4E00;&#x4E2A;&#x53EF;&#x8FD0;&#x884C;&#x3002;&#x8FD9;&#x4E2A;&#x65B0;&#x7684;&#x4F18;&#x5148;&#x6B21;&#x5E8F;&#x4F7F;&#x5F97;&#x8BE5; Goroutine &#x5728;&#x901A;&#x9053;&#x4E0A;&#x518D;&#x6B21;&#x963B;&#x585E;&#x4E4B;&#x524D;&#x5FEB;&#x901F;&#x8FD0;&#x884C;&#x3002;&#x4E4B;&#x540E;&#xFF0C;&#x5176;&#x4ED6;&#x7684; Goroutine &#x518D;&#x5206;&#x914D;&#x8FD0;&#x884C;&#x65F6;&#x95F4;&#x3002;&#x8FD9;&#x4E2A;&#x6539;&#x52A8;&#x5BF9;&#x4E8E; Go &#x6807;&#x51C6;&#x5E93;<a href="https://raw.githubusercontent.com/golang/go/commit/e870f06c3f49ed63960a2575e330c2c75fc54a34" target="_blank">&#x63D0;&#x5347;&#x67D0;&#x4E9B;&#x5305;&#x7684;&#x6027;&#x80FD;</a>&#x6709;&#x7740;&#x603B;&#x4F53;&#x4E0A;&#x6B63;&#x5411;&#x7684;&#x5F71;&#x54CD;&#x3002;</p>
+<hr>
+<p>via: <a href="https://medium.com/a-journey-with-go/go-concurrency-scheduler-affinity-3b678f490488" target="_blank">https://medium.com/a-journey-with-go/go-concurrency-scheduler-affinity-3b678f490488</a></p>
+<p>&#x4F5C;&#x8005;&#xFF1A;<a href="https://medium.com/@blanchon.vincent" target="_blank">Vincent Blanchon</a></p>
+<p>&#x8BD1;&#x8005;: <a href="https://github.com/SarahChenBJ" target="_blank">SarahC</a></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="Go-g0-Special-Goroutine.html" class="navigation navigation-prev " aria-label="Previous page: Go:g0, Special Goroutine">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="Go-Goroutine-and-Preemption.html" class="navigation navigation-next " aria-label="Next page: Go: Goroutine and Preemption">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Go: Concurrency & Scheduler Affinity","level":"1.2.6","depth":2,"next":{"title":"Go: Goroutine and Preemption","level":"1.2.7","depth":2,"path":"goroutine/Go-Goroutine-and-Preemption.md","ref":"goroutine/Go-Goroutine-and-Preemption.md","articles":[]},"previous":{"title":"Go:g0, Special Goroutine","level":"1.2.5","depth":2,"path":"goroutine/Go-g0-Special-Goroutine.md","ref":"goroutine/Go-g0-Special-Goroutine.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":".","styles":{"website":"styles/website.css","ebook":"styles/ebook.css","pdf":"styles/pdf.css","mobi":"styles/mobi.css","epub":"styles/epub.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"goroutine/Go-Concurrency-And-Scheduler-Affinity.md","mtime":"2022-07-02T20:42:24.079Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-07-02T20:43:10.347Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

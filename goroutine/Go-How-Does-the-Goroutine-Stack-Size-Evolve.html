@@ -1,0 +1,835 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Go: How Does the Goroutine Stack Size Evolve? · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../gc/list.html" />
+    
+    
+    <link rel="prev" href="Go-Improve-the-Usage-of-Your-Goroutines-with-GODEBUG.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="list.html">
+            
+                <a href="list.html">
+            
+                    
+                    GOROUTINE
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="Go-How-Does-a-Goroutine-Start-and-Exit.html">
+            
+                <a href="Go-How-Does-a-Goroutine-Start-and-Exit.html">
+            
+                    
+                    Go:How Does a Goroutine Start and Exit?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="Go-gsignal-Master-of-Signals.html">
+            
+                <a href="Go-gsignal-Master-of-Signals.html">
+            
+                    
+                    Go: gsignal, Master of Signals
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="Go-How-Does-a-Goroutine-Start-and-Exit.html">
+            
+                <a href="Go-How-Does-a-Goroutine-Start-and-Exit.html">
+            
+                    
+                    Go:What Does a Goroutine Switch Actually Involve?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" >
+            
+                <span>
+            
+                    
+                    Go:How Does Go Recycle Goroutines?
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="Go-g0-Special-Goroutine.html">
+            
+                <a href="Go-g0-Special-Goroutine.html">
+            
+                    
+                    Go:g0, Special Goroutine
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6" data-path="Go-Concurrency-And-Scheduler-Affinity.html">
+            
+                <a href="Go-Concurrency-And-Scheduler-Affinity.html">
+            
+                    
+                    Go: Concurrency & Scheduler Affinity
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7" data-path="Go-Goroutine-and-Preemption.html">
+            
+                <a href="Go-Goroutine-and-Preemption.html">
+            
+                    
+                    Go: Goroutine and Preemption
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8" data-path="Go-Work-Stealing-in-Go-Scheduler.html">
+            
+                <a href="Go-Work-Stealing-in-Go-Scheduler.html">
+            
+                    
+                    Go: Work-Stealing in Go Scheduler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9" data-path="Go-Goroutine-OS-Thread-and-CPU-Management.html">
+            
+                <a href="Go-Goroutine-OS-Thread-and-CPU-Management.html">
+            
+                    
+                    Go: Goroutine, OS Thread and CPU Management
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.10" data-path="Go-Improve-the-Usage-of-Your-Goroutines-with-GODEBUG.html">
+            
+                <a href="Go-Improve-the-Usage-of-Your-Goroutines-with-GODEBUG.html">
+            
+                    
+                    Go: Improve the Usage of Your Goroutines with GODEBUG
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2.11" data-path="Go-How-Does-the-Goroutine-Stack-Size-Evolve.html">
+            
+                <a href="Go-How-Does-the-Goroutine-Stack-Size-Evolve.html">
+            
+                    
+                    Go: How Does the Goroutine Stack Size Evolve?
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../gc/list.html">
+            
+                <a href="../gc/list.html">
+            
+                    
+                    GARGAGE COLLECTOR
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-memory-management-and-memory-sweep-cc71b484de05">
+            
+                    
+                    Memory Management and Memory Sweep
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-how-does-the-garbage-collector-mark-the-memory-72cfc12c6976">
+            
+                    
+                    Go: How Does the Garbage Collector Mark the Memory?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-how-does-the-garbage-collector-watch-your-application-dbef99be2c35">
+            
+                    
+                    Go: How Does the Garbage Collector Watch Your Application?
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-keeping-a-variable-alive-c28e3633673a">
+            
+                    
+                    Go: Keeping a Variable Alive
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../compiler/list.html">
+            
+                <a href="../compiler/list.html">
+            
+                    
+                    COMPILER
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-overview-of-the-compiler-4e5a153ca889">
+            
+                    
+                    Go: Overview of the Compiler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-built-in-functions-optimizations-70c5abb3a680">
+            
+                    
+                    Go: Built-in Functions Optimizations
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-introduction-to-the-escape-analysis-f7610174e890">
+            
+                    
+                    Go: Introduction to the Escape Analysis
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-how-to-take-advantage-of-the-symbols-table-360dd52269e5">
+            
+                    
+                    Go: How to Take Advantage of the Symbols Table
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-aliases-simple-and-efficient-8506d93b079e">
+            
+                    
+                    Go: Aliases, Simple and Efficient
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-slice-and-memory-management-670498bb52be">
+            
+                    
+                    Go: Slice and Memory Management
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.7" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-memory-safety-with-bounds-check-1397bef748b5">
+            
+                    
+                    Go: Memory safety with Bounds Check
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.8" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-inlining-strategy-limitation-6b6d7fc3b1be">
+            
+                    
+                    Go: Inlining Strategy & Limitation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.9" >
+            
+                <a target="_blank" href="https://medium.com/a-journey-with-go/go-how-are-loops-translated-to-assembly-835b985309b3">
+            
+                    
+                    Go: How Are Loops Translated to Assembly
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../package/list.html">
+            
+                <a href="../package/list.html">
+            
+                    
+                    PACKAGE
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../debug/list.html">
+            
+                <a href="../debug/list.html">
+            
+                    
+                    DEBUG
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Go: How Does the Goroutine Stack Size Evolve?</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="go-goroutine-&#x7684;&#x5806;&#x6808;&#x5927;&#x5C0F;&#x662F;&#x5982;&#x4F55;&#x6F14;&#x8FDB;&#x7684;">Go: Goroutine &#x7684;&#x5806;&#x6808;&#x5927;&#x5C0F;&#x662F;&#x5982;&#x4F55;&#x6F14;&#x8FDB;&#x7684;</h1>
+<p>&#x2139;&#xFE0F; <em>&#x672C;&#x6587;&#x57FA;&#x4E8E; Go 1.12</em></p>
+<p>Go &#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x5957;&#x7B80;&#x5355;&#x4E14;&#x667A;&#x80FD;&#x7684;&#x534F;&#x7A0B;&#x7BA1;&#x7406;&#xFF0C;&#x7B80;&#x5355;&#x662F;&#x56E0;&#x4E3A;&#x534F;&#x7A0B;&#x5728;&#x6700;&#x5F00;&#x59CB;&#x7684;&#x65F6;&#x5019;&#x53EA;&#x6709; 2Kb &#x5927;&#x5C0F;&#xFF0C;&#x667A;&#x80FD;&#x662F;&#x6307;&#x534F;&#x7A0B;&#x7684;&#x5927;&#x5C0F;&#x662F;&#x80FD;&#x968F;&#x7740;&#x5B9E;&#x9645;&#x60C5;&#x51B5;&#x53D8;&#x5927;&#x7F29;&#x5C0F;&#x7684;&#x3002;</p>
+<p>&#x81F3;&#x4E8E;&#x5806;&#x6808;&#x7684;&#x5927;&#x5C0F;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5728;  <code>runtime/stack.go</code> &#x627E;&#x5230;&#x4EE5;&#x4E0B;&#x6CE8;&#x91CA;&#xFF1A;</p>
+<pre><code class="lang-go"><span class="hljs-comment">// The minimum size of stack used by Go code_StackMin = 2048</span>
+</code></pre>
+<p>&#x6211;&#x4EEC;&#x9700;&#x8981;&#x6CE8;&#x610F;&#xFF0C;&#x5728;&#x4E0D;&#x540C;&#x7684;&#x7248;&#x672C;&#xFF0C;&#x6709;&#x4E9B;&#x8BBE;&#x5B9A;&#x662F;&#x4E0D;&#x4E00;&#x6837;&#x7684;&#xFF0C;&#x6BD4;&#x5982;&#xFF1A;</p>
+<ul>
+<li><a href="https://golang.org/doc/go1.2#stacks" target="_blank">Go 1.2</a> &#xFF1A;&#x534F;&#x7A0B;&#x7684;&#x5806;&#x6808;&#x5927;&#x5C0F;&#x4ECE; 4Kb &#x589E;&#x52A0;&#x5230; 8Kb&#x3002;</li>
+<li><a href="https://golang.org/doc/go1.4#runtime" target="_blank">Go 1.4</a> &#xFF1A;&#x534F;&#x7A0B;&#x7684;&#x5806;&#x6808;&#x5927;&#x5C0F;&#x4ECE; 8Kb &#x51CF;&#x5C0F;&#x5230; 2Kb&#x3002;</li>
+</ul>
+<p>&#x5806;&#x6808;&#x7684;&#x5927;&#x5C0F;&#x4E4B;&#x6240;&#x4EE5;&#x6539;&#x53D8;&#x662F;&#x56E0;&#x4E3A;&#x5806;&#x6808;&#x5206;&#x914D;&#x7684;&#x7B56;&#x7565;&#x6539;&#x53D8;&#x4E86;&#xFF0C;&#x8FD9;&#x4E2A;&#x8BDD;&#x9898;&#x6211;&#x4EEC;&#x5F85;&#x4F1A;&#x8FD8;&#x4F1A;&#x8C08;&#x5230;&#x3002;</p>
+<h2 id="&#x52A8;&#x6001;&#x5806;&#x6808;&#x5927;&#x5C0F;">&#x52A8;&#x6001;&#x5806;&#x6808;&#x5927;&#x5C0F;</h2>
+<p>&#x5982;&#x679C; Go &#x80FD;&#x81EA;&#x52A8;&#x5730;&#x589E;&#x5927;&#x5176;&#x5806;&#x6808;&#x7684;&#x5927;&#x5C0F;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x5B83;&#x80FD;&#x5224;&#x65AD;&#x662F;&#x5426;&#x9700;&#x8981;&#x5206;&#x914D;&#x5806;&#x6808;&#x3002;&#x8BA9;&#x6211;&#x4EEC;&#x7528;&#x4E0B;&#x9762;&#x8FD9;&#x4E2A;&#x4F8B;&#x5B50;&#x6765;&#x5206;&#x6790;&#x4E0B;&#x534F;&#x7A0B;&#x662F;&#x5982;&#x4F55;&#x5DE5;&#x4F5C;&#x7684;&#x3002;</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+   a := <span class="hljs-number">1</span>
+   b := <span class="hljs-number">2</span>
+
+   r := max(a, b)
+   <span class="hljs-built_in">println</span>(<span class="hljs-string">`max: `</span>+strconv.Itoa(r))
+}
+
+<span class="hljs-keyword">func</span> max(a <span class="hljs-keyword">int</span>, b <span class="hljs-keyword">int</span>) <span class="hljs-keyword">int</span> {
+   <span class="hljs-keyword">if</span> a &gt;= b {
+      <span class="hljs-keyword">return</span> a
+   }
+
+   <span class="hljs-keyword">return</span> b
+}
+</code></pre>
+<p>&#x8FD9;&#x4E2A;&#x4F8B;&#x5B50;&#x6F14;&#x793A;&#x4E86;&#x53D6;&#x5F97;&#x4E24;&#x4E2A;&#x6574;&#x6570;&#x4E2D;&#x8F83;&#x5927;&#x7684;&#x6570;&#x5B57;&#x3002;&#x4E3A;&#x4E86;&#x77E5;&#x9053; Go &#x5982;&#x4F55;&#x7BA1;&#x7406;&#x534F;&#x7A0B;&#x7684;&#x5806;&#x6808;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x770B;&#x4E0B; Go &#x7684;&#x6C47;&#x7F16;&#x4EE3;&#x7801;&#xFF0C;&#x4F7F;&#x7528;&#x547D;&#x4EE4; <code>go build -gcflags -S main.go</code>&#x3002;&#x6574;&#x7406;&#x5F97;&#x5230;&#x6709;&#x5173;&#x5806;&#x6808;&#x5206;&#x914D;&#x7684;&#x8F93;&#x51FA;&#xFF0C;&#x5B83;&#x4EEC;&#x80FD;&#x544A;&#x8BC9;&#x6211;&#x4EEC; Go &#x90FD;&#x505A;&#x4E86;&#x4EC0;&#x4E48;&#xFF1F;</p>
+<pre><code class="lang-bash"><span class="hljs-string">&quot;&quot;</span>.main STEXT size=186 args=0x0 locals=0x70
+   0x0000 00000 (/go/src/main.go:5)    TEXT   <span class="hljs-string">&quot;&quot;</span>.main(SB), ABIInternal, <span class="hljs-variable">$112</span>-0
+   [...]
+   0x00b0 00176 (/go/src/main.go:5) CALL   runtime.morestack_noctxt(SB)
+[...]
+0x0000 00000 (/go/src/main.go:13)    TEXT   <span class="hljs-string">&quot;&quot;</span>.max(SB), NOSPLIT|ABIInternal, <span class="hljs-variable">$0</span>-24
+</code></pre>
+<p>&#x8FD9;&#x91CC;&#x6709;&#x4E24;&#x4E2A;&#x6307;&#x4EE4;&#x6D89;&#x53CA;&#x5230;&#x5806;&#x6808;&#x53D8;&#x5316;&#x7684;&#xFF1A;</p>
+<ul>
+<li><p><code>CALL runtime.morestack_noctxt</code>&#xFF1A;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x4F1A;&#x6839;&#x636E;&#x9700;&#x8981;&#x5206;&#x914D;&#x66F4;&#x591A;&#x5806;&#x6808;&#x3002;</p>
+</li>
+<li><p><code>NOSPLIT</code> &#x8FD9;&#x4E2A;&#x6307;&#x4EE4;&#x4EE3;&#x8868;&#x4E0D;&#x9700;&#x8981;&#x6808;&#x6EA2;&#x51FA;&#x68C0;&#x67E5;&#x3002;&#x4E0E;&#x5176;&#x76F8;&#x4F3C;&#x7684;&#x6709; <a href="https://golang.org/cmd/compile/" target="_blank">&#x7F16;&#x8BD1;&#x6307;&#x4EE4;</a>  <code>//go:nosplit</code>&#x3002;
+&#x5982;&#x679C;&#x6211;&#x4EEC;&#x67E5;&#x9605;&#x65B9;&#x6CD5; <code>runtime.morestack_noctxt</code>&#xFF0C;&#x5B83;&#x4F1A;&#x4ECE; <code>runtime/stack.go</code> &#x8C03;&#x7528;&#x65B9;&#x6CD5; <code>newstack</code>&#xFF1A;</p>
+</li>
+</ul>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> newstack() {
+   [...]
+   <span class="hljs-comment">// Allocate a bigger segment and move the stack.</span>
+   oldsize := gp.stack.hi - gp.stack.lo
+   newsize := oldsize * <span class="hljs-number">2</span>
+   <span class="hljs-keyword">if</span> newsize &gt; maxstacksize {
+       <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;runtime: Goroutine stack exceeds &quot;</span>, maxstacksize, <span class="hljs-string">&quot;-byte limit\n&quot;</span>)
+      throw(<span class="hljs-string">&quot;stack overflow&quot;</span>)
+   }
+
+   <span class="hljs-comment">// The Goroutine must be executing in order to call newstack,</span>
+   <span class="hljs-comment">// so it must be Grunning (or Gscanrunning).</span>
+   casgstatus(gp, _Grunning, _Gcopystack)
+
+   <span class="hljs-comment">// The concurrent GC will not scan the stack while we are doing the copy since</span>
+   <span class="hljs-comment">// the gp is in a Gcopystack status.</span>
+   copystack(gp, newsize, <span class="hljs-literal">true</span>)
+   <span class="hljs-keyword">if</span> stackDebug &gt;= <span class="hljs-number">1</span> {
+      <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;stack grow done\n&quot;</span>)
+   }
+   casgstatus(gp, _Gcopystack, _Grunning)
+}
+</code></pre>
+<p>&#x5F53;&#x524D;&#x5806;&#x6808;&#x7684;&#x5927;&#x5C0F;&#x662F;&#x901A;&#x8FC7; <code>gp.stack.hi</code> &#x4E0E; <code>gp.stack.lo</code> &#x76F8;&#x51CF;&#x5F97;&#x5230;&#x7684;&#xFF0C;&#x4ED6;&#x4EEC;&#x5206;&#x522B;&#x6307;&#x5411;&#x5806;&#x6808;&#x7684;&#x8D77;&#x59CB;&#x4F4D;&#x7F6E;&#x548C;&#x7ED3;&#x675F;&#x4F4D;&#x7F6E;&#x3002;</p>
+<pre><code class="lang-go"><span class="hljs-keyword">type</span> stack <span class="hljs-keyword">struct</span> {
+   lo <span class="hljs-keyword">uintptr</span>
+   hi <span class="hljs-keyword">uintptr</span>
+}
+</code></pre>
+<p>&#x7136;&#x540E;&#xFF0C;&#x5C06;&#x5F53;&#x524D;&#x5927;&#x5C0F;&#x4E58;&#x4EE5; 2 &#x5E76;&#x68C0;&#x67E5;&#x5B83;&#x662F;&#x5426;&#x8D85;&#x8FC7;&#x5141;&#x8BB8;&#x7684;&#x6700;&#x5927;&#x503C;&#xFF08;&#x8BE5;&#x5927;&#x5C0F;&#x53D6;&#x51B3;&#x4E8E;&#x5E73;&#x53F0;&#xFF09;&#xFF1A;</p>
+<pre><code class="lang-go"><span class="hljs-comment">// 64 &#x4F4D;&#x7CFB;&#x7EDF;&#x6700;&#x5927;&#x503C;&#x4E3A; 1GB,32 &#x4F4D;&#x7CFB;&#x7EDF;&#x4E3A; 250MB.</span>
+<span class="hljs-comment">// &#x4F7F;&#x7528;&#x5341;&#x8FDB;&#x5236;&#x800C;&#x4E0D;&#x662F;&#x4E8C;&#x8FDB;&#x5236;&#x7684; GB,MB &#x662F;&#x56E0;&#x4E3A;</span>
+<span class="hljs-comment">// &#x5B83;&#x4EEC;&#x5728;&#x5806;&#x6EA2;&#x51FA;&#x7684;&#x62A5;&#x9519;&#x4FE1;&#x606F;&#x4E2D;&#x770B;&#x8D77;&#x6765;&#x66F4;&#x5408;&#x9002;</span>
+<span class="hljs-keyword">if</span> sys.PtrSize == <span class="hljs-number">8</span> {
+   maxstacksize = <span class="hljs-number">1000000000</span>
+} <span class="hljs-keyword">else</span> {
+   maxstacksize = <span class="hljs-number">250000000</span>
+}
+</code></pre>
+<p>&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x77E5;&#x9053;&#x4E86;&#x6D41;&#x7A0B;&#xFF0C;&#x90A3;&#x4E48;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5199;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x4F8B;&#x5B50;&#x6765;&#x9A8C;&#x8BC1;&#x3002;&#x4E3A;&#x4E86;&#x65B9;&#x4FBF;&#x8FDB;&#x884C;&#x8C03;&#x8BD5;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;&#x628A;&#x5728; <code>thenewstack</code> &#x65B9;&#x6CD5;&#x4E2D;&#x770B;&#x5230;&#x7684;&#x5E38;&#x91CF; <code>stackDebug</code> &#x8BBE;&#x7F6E;&#x4E3A; 1 &#x5E76;&#x8FD0;&#x884C;&#x3002;</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+   <span class="hljs-keyword">var</span> x [<span class="hljs-number">10</span>]<span class="hljs-keyword">int</span>
+   a(x)
+}
+
+<span class="hljs-comment">//go:noinline</span>
+<span class="hljs-keyword">func</span> a(x [<span class="hljs-number">10</span>]<span class="hljs-keyword">int</span>) {
+   <span class="hljs-built_in">println</span>(<span class="hljs-string">`func a`</span>)
+   <span class="hljs-keyword">var</span> y [<span class="hljs-number">100</span>]<span class="hljs-keyword">int</span>
+   b(y)
+}
+
+<span class="hljs-comment">//go:noinline</span>
+<span class="hljs-keyword">func</span> b(x [<span class="hljs-number">100</span>]<span class="hljs-keyword">int</span>) {
+   <span class="hljs-built_in">println</span>(<span class="hljs-string">`func b`</span>)
+   <span class="hljs-keyword">var</span> y [<span class="hljs-number">1000</span>]<span class="hljs-keyword">int</span>
+   c(y)
+}
+
+<span class="hljs-comment">//go:noinline</span>
+<span class="hljs-keyword">func</span> c(x [<span class="hljs-number">1000</span>]<span class="hljs-keyword">int</span>) {
+   <span class="hljs-built_in">println</span>(<span class="hljs-string">`func c`</span>)
+}
+</code></pre>
+<p>&#x6307;&#x4EE4; <em>//go:noinline</em> &#x53EF;&#x4EE5;&#x907F;&#x514D;&#x5728; <code>main</code> &#x51FD;&#x6570;&#x4E2D;&#xFF0C;&#x5185;&#x8054;&#x6240;&#x6709;&#x51FD;&#x6570;&#x3002;&#x5982;&#x679C;&#x5185;&#x8054;&#x662F;&#x7531;&#x7F16;&#x8BD1;&#x5668;&#x5B8C;&#x6210;&#x7684;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;&#x4E0D;&#x4F1A;&#x770B;&#x5230;&#x6BCF;&#x4E2A;&#x51FD;&#x6570;&#x4E2D;&#x5806;&#x6808;&#x7684;&#x52A8;&#x6001;&#x589E;&#x957F;&#x3002;</p>
+<p>&#x8FD9;&#x91CC;&#x662F;&#x90E8;&#x5206;&#x8C03;&#x8BD5;&#x4FE1;&#x606F;&#xFF1A;</p>
+<pre><code class="lang-go">runtime: newstack sp=<span class="hljs-number">0xc00002e6d8</span> stack=[<span class="hljs-number">0xc00002e000</span>, <span class="hljs-number">0xc00002e800</span>]
+stack grow done
+<span class="hljs-keyword">func</span> a
+runtime: newstack sp=<span class="hljs-number">0xc000076888</span> stack=[<span class="hljs-number">0xc000076000</span>, <span class="hljs-number">0xc000077000</span>]
+stack grow done
+runtime: newstack sp=<span class="hljs-number">0xc00003f888</span> stack=[<span class="hljs-number">0xc00003e000</span>, <span class="hljs-number">0xc000040000</span>]
+stack grow done
+runtime: newstack sp=<span class="hljs-number">0xc000081888</span> stack=[<span class="hljs-number">0xc00007e000</span>, <span class="hljs-number">0xc000082000</span>]
+stack grow done
+<span class="hljs-keyword">func</span> b
+runtime: newstack sp=<span class="hljs-number">0xc0000859f8</span> stack=[<span class="hljs-number">0xc000082000</span>, <span class="hljs-number">0xc00008a000</span>]
+<span class="hljs-keyword">func</span> c
+</code></pre>
+<p>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x5806;&#x6808;&#x5927;&#x5C0F;&#x589E;&#x5927;&#x4E86; 4 &#x6B21;&#xFF0C;&#x5B9E;&#x9645;&#x4E0A;&#xFF0C;&#x51FD;&#x6570;&#x4F1A;&#x6839;&#x636E;&#x9700;&#x8981;&#x5C3D;&#x53EF;&#x80FD;&#x5730;&#x589E;&#x52A0;&#x5806;&#x6808;&#x3002;&#x6B63;&#x5982;&#x6211;&#x4EEC;&#x5728;&#x4EE3;&#x7801;&#x4E2D;&#x770B;&#x5230;&#x7684;&#xFF0C;&#x5806;&#x6808;&#x5927;&#x5C0F;&#x7531;&#x5806;&#x6808;&#x7684;&#x8FB9;&#x754C;&#x5B9A;&#x4E49;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x8BA1;&#x7B97;&#x65B0;&#x5206;&#x914D;&#x7684;&#x5806;&#x6808;&#x7684;&#x5927;&#x5C0F;&#xFF0C;&#x6839;&#x636E;&#x6307;&#x4EE4; <code>newstack stack=[...]</code> &#x63D0;&#x4F9B;&#x7684;&#x5F53;&#x524D;&#x5806;&#x6808;&#x8FB9;&#x754C;&#x7684;&#x6307;&#x9488;&#x3002;</p>
+<pre><code class="lang-bash">runtime: newstack sp=0xc00002e6d8 stack=[0xc00002e000, 0xc00002e800]
+0xc00002e800 - 0xc00002e000 = 2048
+runtime: newstack sp=0xc000076888 stack=[0xc000076000, 0xc000077000]
+0xc000077000 - 0xc000076000 = 4096
+runtime: newstack sp=0xc00003f888 stack=[0xc00003e000, 0xc000040000]
+0xc000040000 - 0xc00003e000 = 8192
+runtime: newstack sp=0xc000081888 stack=[0xc00007e000, 0xc000082000]
+0xc000082000 - 0xc00007e000 = 16384
+runtime: newstack sp=0xc0000859f8 stack=[0xc000082000, 0xc00008a000]
+0xc00008a000 - 0xc000082000 = 32768
+</code></pre>
+<p>&#x5BF9;&#x534F;&#x7A0B;&#x5185;&#x90E8;&#x7684;&#x5206;&#x6790;&#x544A;&#x8BC9;&#x4E86;&#x6211;&#x4EEC;&#x534F;&#x7A0B;&#x6700;&#x5F00;&#x59CB;&#x7684;&#x5927;&#x5C0F;&#x7684;&#x786E;&#x53EA;&#x6709; 2Kb&#xFF0C;&#x5E76;&#x4E14;&#x5C3D;&#x53EF;&#x80FD;&#x7684;&#x5728;&#x51FD;&#x6570;&#x903B;&#x8F91;&#xFF0C;&#x7F16;&#x8BD1;&#x9636;&#x6BB5;&#x6269;&#x5927;&#x5927;&#x5C0F;&#xFF0C;&#x77E5;&#x9053;&#x5185;&#x5B58;&#x9971;&#x548C;&#xFF0C;&#x6216;&#x8005;&#x5806;&#x6808;&#x5927;&#x5C0F;&#x8FBE;&#x5230;&#x6700;&#x5927;&#x503C;&#x3002;</p>
+<h2 id="&#x5806;&#x6808;&#x5206;&#x914D;&#x7BA1;&#x7406;">&#x5806;&#x6808;&#x5206;&#x914D;&#x7BA1;&#x7406;</h2>
+<p>&#x52A8;&#x6001;&#x5206;&#x914D;&#x7CFB;&#x7EDF;&#x5E76;&#x4E0D;&#x662F;&#x5F71;&#x54CD;&#x6211;&#x4EEC;&#x7684;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x7684;&#x552F;&#x4E00;&#x56E0;&#x7D20;&#x3002;&#x5B83;&#x7684;&#x5206;&#x914D;&#x65B9;&#x5F0F;&#x4E5F;&#x4F1A;&#x4EA7;&#x751F;&#x5DE8;&#x5927;&#x7684;&#x5F71;&#x54CD;&#x3002;&#x8BA9;&#x6211;&#x4EEC;&#x8BD5;&#x7740;&#x4ECE;&#x4E24;&#x4E2A;&#x5806;&#x6808;&#x589E;&#x957F;&#x7684;&#x8DDF;&#x8E2A;&#x8BB0;&#x5F55;&#x6765;&#x7406;&#x89E3;&#x5B83;&#x662F;&#x5982;&#x4F55;&#x7BA1;&#x7406;&#x7684;&#x3002;</p>
+<pre><code class="lang-bash">runtime: newstack sp=0xc00002e6d8 stack=[0xc00002e000, 0xc00002e800]
+copystack gp=0xc000000300 [0xc00002e000 0xc00002e6e0 0xc00002e800] -&gt; [0xc000076000 0xc000076ee0 0xc000077000]/4096
+stackfree 0xc00002e000 2048
+stack grow <span class="hljs-keyword">done</span>
+runtime: newstack sp=0xc000076888 stack=[0xc000076000, 0xc000077000]
+copystack gp=0xc000000300 [0xc000076000 0xc000076890 0xc000077000] -&gt; [0xc00003e000 0xc00003f890 0xc000040000]/8192
+stackfree 0xc000076000 4096
+stack grow <span class="hljs-keyword">done</span>
+</code></pre>
+<p>&#x7B2C;&#x4E00;&#x4E2A;&#x6307;&#x4EE4;&#x663E;&#x793A;&#x5F53;&#x524D;&#x5806;&#x6808;&#x7684;&#x5730;&#x5740;&#xFF0C;<code>stack=[0xc00002e000, 0xc00002e800]</code> &#xFF0C;&#x7136;&#x540E;&#x628A;&#x5B83;&#x590D;&#x5236;&#x5230;&#x4E00;&#x4E2A;&#x4E24;&#x500D;&#x5927;&#x7684;&#x65B0;&#x7A7A;&#x95F4;&#x4E0A; <code>copystack [0xc00002e000 [...] 0xc00002e800] -&gt; [0xc000076000 [...] 0xc000077000]</code>&#xFF0C;4096 bits &#x957F;&#x5EA6;&#xFF0C;&#x5C31;&#x548C;&#x6211;&#x4EEC;&#x4E4B;&#x524D;&#x770B;&#x5230;&#x7684;&#x4E00;&#x6837;&#x3002;&#x4E4B;&#x524D;&#x7684;&#x5806;&#x6808;&#x73B0;&#x5728;&#x88AB;&#x91CA;&#x653E;&#x4E86;&#xFF0C;<code>0xc00002e000</code>&#x3002;&#x901A;&#x8FC7;&#x4E0B;&#x65B9;&#x7684;&#x56FE;&#xFF0C;&#x53EF;&#x4EE5;&#x5E2E;&#x52A9;&#x66F4;&#x76F4;&#x89C2;&#x7684;&#x89C2;&#x5BDF;&#x6B63;&#x5728;&#x53D1;&#x751F;&#x7684;&#x4E8B;&#x60C5;</p>
+<p><img src="../img/StackSize-1.png" alt=""></p>
+<p>&#x6307;&#x4EE4; <code>copystack</code> &#x590D;&#x5236;&#x6574;&#x4E2A;&#x5806;&#x6808;&#xFF0C;&#x5E76;&#x5C06;&#x6240;&#x6709;&#x5185;&#x5BB9;&#x79FB;&#x52A8;&#x5230;&#x8FD9;&#x4E2A;&#x65B0;&#x5206;&#x914D;&#x7684;&#x5806;&#x6808;&#x3002;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x4EE5;&#x4E0B;&#x7B80;&#x5355;&#x7684;&#x4EE3;&#x7801;&#x6765;&#x5730;&#x9A8C;&#x8BC1;&#x8FD9;&#x4E2A;&#x903B;&#x8F91;&#xFF1A;</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+   <span class="hljs-keyword">var</span> x [<span class="hljs-number">10</span>]<span class="hljs-keyword">int</span>
+   <span class="hljs-built_in">println</span>(&amp;x)
+   a(x)
+   <span class="hljs-built_in">println</span>(&amp;x)
+}
+</code></pre>
+<p>&#x6253;&#x5370;&#x5F97;&#x5230;&#x7684;&#x5730;&#x5740;&#xFF1A;</p>
+<pre><code class="lang-bash">0xc00002e738
+[...]
+0xc000089f38
+</code></pre>
+<p>&#x5730;&#x5740; <code>0xc00002e738</code> &#x5305;&#x542B;&#x5728;&#x6211;&#x4EEC;&#x5728;&#x8C03;&#x8BD5;&#x8DDF;&#x8E2A;&#x4E2D;&#x770B;&#x5230;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x5806;&#x6808;&#x5730;&#x5740; <code>stack=[0xc00002e000, 0xc00002e800]</code> &#x4E2D;&#xFF0C;&#x800C; <code>0xc000089f38</code> &#x5305;&#x542B;&#x5728;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x5806;&#x6808;&#x8FB9;&#x754C; <code>stack=[0xc000082000, 0xc00008a000]</code> &#x4E2D;&#x3002;&#x5B83;&#x8BC1;&#x5B9E;&#x4E86;&#x6240;&#x6709;&#x7684;&#x503C;&#x5DF2;&#x7ECF;&#x4ECE;&#x4E00;&#x4E2A;&#x5806;&#x6808;&#x79FB;&#x52A8;&#x5230;&#x53E6;&#x4E00;&#x4E2A;&#x5806;&#x6808;&#x3002;</p>
+<p>&#x53E6;&#x5916;&#xFF0C;&#x6709;&#x8DA3;&#x7684;&#x662F;&#xFF0C;&#x5F53;&#x89E6;&#x53D1; GC &#x65F6;&#xFF0C;&#x5806;&#x6808;&#x5C06;&#x89C6;&#x60C5;&#x51B5;&#x800C;&#x7F29;&#x5C0F;&#x3002;</p>
+<p>&#x5728;&#x6211;&#x4EEC;&#x7684;&#x4F8B;&#x5B50;&#x4E2D;&#xFF0C;&#x6240;&#x6709;&#x51FD;&#x6570;&#x8C03;&#x7528;&#x540E;&#xFF0C;&#x9664;&#x4E86; <code>main</code> &#x51FD;&#x6570;&#x4E2D;&#x7684;&#x5806;&#x6808;&#x5916;&#xFF0C;&#x4E0D;&#x518D;&#x6709;&#x5176;&#x5B83;&#x5806;&#x6808;&#xFF0C;&#x56E0;&#x6B64;&#x5F53; GC &#x8FD0;&#x884C;&#x65F6;&#x7CFB;&#x7EDF;&#x5C06;&#x4F1A;&#x7F29;&#x5C0F;&#x5806;&#x6808;&#x3002;&#x4E3A;&#x6B64;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5F3A;&#x5236; GC &#x8FD0;&#x884C;&#x3002;</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+   <span class="hljs-keyword">var</span> x [<span class="hljs-number">10</span>]<span class="hljs-keyword">int</span>
+   <span class="hljs-built_in">println</span>(&amp;x)
+   a(x)
+   runtime.GC()
+   <span class="hljs-built_in">println</span>(&amp;x)
+}
+</code></pre>
+<p>&#x8C03;&#x8BD5;&#x4FE1;&#x606F;&#x663E;&#x793A;&#x4E86;&#x5806;&#x6808;&#x7684;&#x7F29;&#x5C0F;&#x3002;</p>
+<pre><code class="lang-bash">func c
+shrinking stack 32768-&gt;16384
+copystack gp=0xc000000300 [0xc000082000 0xc000089e60 0xc00008a000] -&gt; [0xc00007e000 0xc000081e60 0xc000082000]/16384
+</code></pre>
+<p>&#x5982;&#x6211;&#x4EEC;&#x6240;&#x89C1;&#xFF0C;&#x5806;&#x6808;&#x5927;&#x5C0F;&#x5DF2;&#x9664;&#x4EE5; 2 &#xFF0C;&#x5E76;&#x91CD;&#x65B0;&#x4F7F;&#x7528;&#x4E86;&#x5148;&#x524D;&#x7684;&#x5806;&#x6808;&#x5730;&#x5740; <code>stack = [0xc00007e000&#xFF0C;0xc000082000]</code>&#x3002; &#x518D;&#x4E00;&#x6B21;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5728; <code>runtime/stack.go-rinklestack&#xFF08;&#xFF09;</code> &#x4E2D;&#x770B;&#x5230;&#xFF0C;&#x6536;&#x7F29;&#x540E;&#x7684;&#x5927;&#x5C0F;&#x603B;&#x662F;&#x5C06;&#x5F53;&#x524D;&#x5927;&#x5C0F;&#x9664;&#x4EE5; 2&#xFF1A;</p>
+<pre><code class="lang-go">oldsize := gp.stack.hi - gp.stack.lo
+newsize := oldsize / <span class="hljs-number">2</span>
+</code></pre>
+<h2 id="&#x8FDE;&#x7EED;&#x5806;&#x6808;-vs-&#x5206;&#x6BB5;&#x5806;&#x6808;">&#x8FDE;&#x7EED;&#x5806;&#x6808; VS &#x5206;&#x6BB5;&#x5806;&#x6808;</h2>
+<p>&#x628A;&#x5F53;&#x524D;&#x5806;&#x6808;&#x590D;&#x5236;&#x5230;&#x53E6;&#x4E00;&#x4E2A;&#x66F4;&#x5927;&#x7684;&#x5806;&#x6808;&#x7A7A;&#x95F4;&#x7684;&#x7B56;&#x7565;&#x79F0;&#x4E3A;&#x8FDE;&#x7EED;&#x5806;&#x6808;&#xFF0C;&#x76F8;&#x53CD;&#x7684;&#x8FD8;&#x6709;&#x5206;&#x6BB5;&#x5806;&#x6808;&#x7B56;&#x7565;&#x3002;Go &#x5728; 1.3 &#x7248;&#x672C;&#x5F00;&#x59CB;&#x4F7F;&#x7528;&#x8FDE;&#x7EED;&#x5806;&#x6808;&#x7B56;&#x7565;&#xFF0C;&#x4E3A;&#x4E86;&#x770B;&#x5230;&#x4E24;&#x79CD;&#x7B56;&#x7565;&#x7684;&#x5DEE;&#x5F02;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;&#x5728; Go 1.2 &#x7684;&#x73AF;&#x5883;&#x4E0B;&#x8FD0;&#x884C;&#x540C;&#x4E00;&#x4E2A;&#x4F8B;&#x5B50;&#x3002;&#x540C;&#x6837;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x66F4;&#x65B0;&#x5E38;&#x91CF; <code>stackDebug</code> &#x4EE5;&#x8F93;&#x51FA;&#x8C03;&#x8BD5;&#x4FE1;&#x606F;&#x3002;&#x7531;&#x4E8E;&#x5728; 1.2 &#x7248;&#x672C;&#x7684; <code>runtime</code> &#x662F; C &#x7F16;&#x5199;&#x7684;&#xFF0C;&#x56E0;&#x6B64;&#x6211;&#x4EEC;&#x4E0D;&#x5F97;&#x4E0D;<a href="https://golang.org/doc/install/source#install" target="_blank">&#x7F16;&#x8BD1;&#x6E90;&#x4EE3;&#x7801;</a>&#x3002; &#x7ED3;&#x679C;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code class="lang-bash">func a
+runtime: newstack framesize=0x3e90 argsize=0x320 sp=0x7f8875953848 stack=[0x7f8875952000, 0x7f8875953fa0]
+   -&gt; new stack [0xc21001d000, 0xc210021950]
+func b
+func c
+runtime: oldstack gobuf={pc:0x400cff sp:0x7f8875953858 lr:0x0} cret=0x1 argsize=0x320
+</code></pre>
+<p>&#x5F53;&#x524D;&#x5806;&#x6808;&#x5927;&#x5C0F;&#x4E3A; 8Kb <code>stack=[0x7f8875952000, 0x7f8875953fa0]</code>&#xFF0C;8192 &#x5B57;&#x8282;&#x52A0;&#x4E0A;&#x5806;&#x6808;&#x5934;&#x4FE1;&#x606F;&#x3002;&#x65B0;&#x521B;&#x5EFA;&#x7684;&#x5806;&#x6808;&#x5927;&#x5C0F;&#x4E3A; 18864 &#x5B57;&#x8282;&#x5927;&#x5C0F;&#xFF08;18768 &#x5B57;&#x8282;&#x52A0;&#x4E0A;&#x5806;&#x6808;&#x5934;&#x4FE1;&#x606F;&#xFF09;&#xFF0C;&#x5185;&#x5B58;&#x5206;&#x914D;&#x4FE1;&#x606F;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code class="lang-bash">// allocate new segment.
+framesize += argsize;
+framesize += StackExtra;   // room <span class="hljs-keyword">for</span> more <span class="hljs-built_in">functions</span>, Stktop.
+<span class="hljs-keyword">if</span>(framesize &lt; StackM<span class="hljs-keyword">in</span>)
+   framesize = StackM<span class="hljs-keyword">in</span>;
+framesize += StackSystem;
+</code></pre>
+<p>&#x56E0;&#x4E3A;&#x5E38;&#x91CF; <code>StackExtra</code> &#x88AB;&#x8BBE;&#x7F6E;&#x4E3A; <a href="https://github.com/golang/go/blob/release-branch.go1.2/src/pkg/runtime/stack.h#L74" target="_blank">2048</a>&#xFF0C;<code>StackMin</code> &#x88AB;&#x8BBE;&#x7F6E;&#x4E3A; <a href="https://github.com/golang/go/blob/release-branch.go1.2/src/pkg/runtime/stack.h#L79" target="_blank">8192</a>&#xFF0C;<code>StackSystem</code> &#x88AB;<a href="https://github.com/golang/go/blob/release-branch.go1.2/src/pkg/runtime/stack.h#L61-L68" target="_blank">&#x6700;&#x5C0F;&#x503C;&#x88AB;&#x8BBE;&#x7F6E;&#x4E3A; 0&#xFF0C;&#x6700;&#x5927;&#x503C;&#x4E3A; 512</a>&#x3002;&#x56E0;&#x6B64;&#x6211;&#x4EEC;&#x7684;&#x65B0;&#x5806;&#x6808;&#x7531;&#x4E24;&#x90E8;&#x5206;&#x7EC4;&#x6210;&#xFF1A;16016 ( frame size ) + 800 ( arguments ) + 2048 ( StackExtra ) + 0 ( StackSystem ).</p>
+<p>&#x4E00;&#x65E6;&#x6240;&#x6709;&#x51FD;&#x6570;&#x90FD;&#x88AB;&#x8C03;&#x7528;&#xFF0C;&#x65B0;&#x5206;&#x914D;&#x5806;&#x6808;&#x5C31;&#x88AB;&#x91CA;&#x653E;&#x4E86;(&#x89C1; <code>runtime:oldstack</code>)&#xFF0C;&#x8FD9;&#x79CD;&#x884C;&#x4E3A;&#x662F;&#x4FC3;&#x4F7F; <a href="https://docs.google.com/document/d/1wAaf1rYoM4S4gtnPh0zOlGzWtrZFQ5suE8qr2sD8uWQ/pub" target="_blank"> Golang &#x56E2;&#x961F;&#x91C7;&#x7528;&#x8FDE;&#x7EED;&#x5806;&#x6808;&#x7B56;&#x7565;</a>&#x7684;&#x539F;&#x56E0;&#x4E4B;&#x4E00;&#xFF1A;</p>
+<p><em>&#x5982;&#x679C;&#x5728;&#x4E00;&#x4E2A;&#x5FEB;&#x901F;&#x7D27;&#x5BC6;&#x7684;&#x5FAA;&#x73AF;&#x4E2D;&#xFF0C;&#x8FDE;&#x7EED;&#x8C03;&#x7528;&#x5806;&#x6808;&#x5206;&#x914D;&#x64CD;&#x4F5C;&#xFF0C;&#x90A3;&#x4E48;&#x5206;&#x914D;/&#x91CA;&#x653E;&#x64CD;&#x4F5C;&#x5C06;&#x4F1A;&#x9020;&#x6210;&#x5DE8;&#x5927;&#x5F00;&#x9500;&#x3002;</em></p>
+<p>&#x7531;&#x4E8E;&#x5206;&#x6BB5;&#x5806;&#x6808;&#x7684;&#x8FD9;&#x4E2A;&#x7F3A;&#x9677;&#xFF0C;Go &#x4E0D;&#x5F97;&#x4E0D;&#x5C06;&#x5806;&#x6808;&#x7684;&#x6700;&#x5C0F;&#x503C;&#x4ECE; 2Kb &#x52A0;&#x5230; 8Kb&#xFF0C;&#x4EE5;&#x907F;&#x514D;&#x9891;&#x7E41;&#x7684;&#x5206;&#x914D;/&#x91CA;&#x653E;&#x64CD;&#x4F5C;&#xFF0C;&#x5728;&#x91C7;&#x7528;&#x8FDE;&#x7EED;&#x5806;&#x6808;&#x7B56;&#x7565;&#x540E;&#xFF0C;&#x53C8;&#x5C06;&#x5176;&#x51CF;&#x5C0F;&#x56DE; 2Kb&#x3002;</p>
+<p>&#x4E0B;&#x65B9;&#x662F;&#x4E00;&#x5F20;&#x5206;&#x6BB5;&#x5806;&#x6808;&#x7B56;&#x7565;&#x7684;&#x76F4;&#x89C2;&#x56FE;&#xFF1A;</p>
+<p><img src="../img/StackSize-2.png" alt=""></p>
+<h2 id="&#x603B;&#x7ED3;">&#x603B;&#x7ED3;</h2>
+<p>Go &#x7684;&#x6808;&#x7BA1;&#x7406;&#x975E;&#x5E38;&#x9AD8;&#x6548;&#xFF0C;&#x4E5F;&#x5F88;&#x5BB9;&#x6613;&#x7406;&#x89E3;&#x3002;Golang &#x5E76;&#x4E0D;&#x662F;&#x552F;&#x4E00;&#x9009;&#x62E9;&#x4E0D;&#x4F7F;&#x7528;&#x5206;&#x6BB5;&#x5806;&#x6808;&#x7684;&#x8BED;&#x8A00;&#xFF0C;<a href="https://mail.mozilla.org/pipermail/rust-dev/2013-November/006314.html" target="_blank">Rust &#x4E5F;&#x51FA;&#x4E8E;&#x540C;&#x6837;&#x7684;&#x539F;&#x56E0;</a>&#x51B3;&#x5B9A;&#x4E0D;&#x4F7F;&#x7528;&#x8FD9;&#x4E2A;&#x8FD9;&#x4E2A;&#x7B56;&#x7565;&#x3002;</p>
+<hr>
+<p>via: <a href="https://medium.com/a-journey-with-go/go-how-does-the-goroutine-stack-size-evolve-447fc02085e5" target="_blank">https://medium.com/a-journey-with-go/go-how-does-the-goroutine-stack-size-evolve-447fc02085e5</a></p>
+<p>&#x4F5C;&#x8005;&#xFF1A;<a href="https://medium.com/@blanchon.vincent" target="_blank">Vincent Blanchon</a></p>
+<p>&#x8BD1;&#x8005;: <a href="https://github.com/SarahChenBJ" target="_blank">SarahC</a></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="Go-Improve-the-Usage-of-Your-Goroutines-with-GODEBUG.html" class="navigation navigation-prev " aria-label="Previous page: Go: Improve the Usage of Your Goroutines with GODEBUG">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../gc/list.html" class="navigation navigation-next " aria-label="Next page: GARGAGE COLLECTOR">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Go: How Does the Goroutine Stack Size Evolve?","level":"1.2.11","depth":2,"next":{"title":"GARGAGE COLLECTOR","level":"1.3","depth":1,"path":"gc/list.md","ref":"gc/list.md","articles":[{"title":"Memory Management and Memory Sweep","level":"1.3.1","depth":2,"url":"https://medium.com/a-journey-with-go/go-memory-management-and-memory-sweep-cc71b484de05","ref":"https://medium.com/a-journey-with-go/go-memory-management-and-memory-sweep-cc71b484de05","articles":[]},{"title":"Go: How Does the Garbage Collector Mark the Memory?","level":"1.3.2","depth":2,"url":"https://medium.com/a-journey-with-go/go-how-does-the-garbage-collector-mark-the-memory-72cfc12c6976","ref":"https://medium.com/a-journey-with-go/go-how-does-the-garbage-collector-mark-the-memory-72cfc12c6976","articles":[]},{"title":"Go: How Does the Garbage Collector Watch Your Application?","level":"1.3.3","depth":2,"url":"https://medium.com/a-journey-with-go/go-how-does-the-garbage-collector-watch-your-application-dbef99be2c35","ref":"https://medium.com/a-journey-with-go/go-how-does-the-garbage-collector-watch-your-application-dbef99be2c35","articles":[]},{"title":"Go: Keeping a Variable Alive","level":"1.3.4","depth":2,"url":"https://medium.com/a-journey-with-go/go-keeping-a-variable-alive-c28e3633673a","ref":"https://medium.com/a-journey-with-go/go-keeping-a-variable-alive-c28e3633673a","articles":[]}]},"previous":{"title":"Go: Improve the Usage of Your Goroutines with GODEBUG","level":"1.2.10","depth":2,"path":"goroutine/Go-Improve-the-Usage-of-Your-Goroutines-with-GODEBUG.md","ref":"goroutine/Go-Improve-the-Usage-of-Your-Goroutines-with-GODEBUG.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":".","styles":{"website":"styles/website.css","ebook":"styles/ebook.css","pdf":"styles/pdf.css","mobi":"styles/mobi.css","epub":"styles/epub.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"goroutine/Go-How-Does-the-Goroutine-Stack-Size-Evolve.md","mtime":"2022-07-02T20:42:24.079Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-07-02T20:43:10.347Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
